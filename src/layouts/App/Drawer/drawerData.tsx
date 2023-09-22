@@ -18,19 +18,9 @@ export const DrawerData = (logout?: () => void): IDrawerData[] => [
 		title: "Operations",
 		sublist: [
 			{
-				name: "Leads",
-				icon: <Icon icon="iconamoon:funnel-light" />,
-				to: "/app/leads",
-			},
-			{
-				name: "Properties",
-				icon: <Icon icon="mdi:building" />,
-				to: "/app/properties",
-			},
-			{
-				name: "Media",
-				icon: <Icon icon="material-symbols:person-play-outline" />,
-				to: "/app/media",
+				name: "Users",
+				icon: <Icon icon="la:users" />,
+				to: "/app/users",
 			},
 		],
 	},
