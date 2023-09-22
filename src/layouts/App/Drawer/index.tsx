@@ -21,6 +21,7 @@ import { Link } from "react-router-dom";
 import {
 	Drawer,
 	DrawerFooter,
+	DrawerHeader,
 	// DrawerHeader
 } from "../components";
 import { DrawerData } from "./drawerData";
@@ -41,18 +42,33 @@ const AppDrawer: React.FC<{ open: boolean; toggleDrawer: () => void }> = ({
 				variant="permanent"
 				open={open}
 			>
-				{/* <DrawerHeader>
+				<DrawerHeader
+					sx={{
+						justifyContent: open ? "initial" : "center",
+					}}
+				>
 					<Avatar
 						variant={"square"}
-						src={"/assets/logo.png"}
+						src={"/favicon.svg"}
 						sx={{
 							position: "relative",
-							width: "40px",
+							width: "53px",
 							height: "auto",
 							p: 0.8,
 						}}
 					/>
-				</DrawerHeader> */}
+					<Avatar
+						variant={"square"}
+						src={"/name-light.svg"}
+						sx={{
+							position: "relative",
+							width: open ? "200px" : "0px",
+							height: "auto",
+							p: open ? 0.8 : 0,
+							transition: "all 0.3s ease-in-out",
+						}}
+					/>
+				</DrawerHeader>
 				<Divider
 					variant="middle"
 					sx={{ mb: 1 }}
@@ -112,8 +128,10 @@ const AppDrawer: React.FC<{ open: boolean; toggleDrawer: () => void }> = ({
 														minWidth: 0,
 														mr: open ? 1.5 : "auto",
 														justifyContent: "center",
-														bgcolor: "#fef6ea",
-														color: "primary.main",
+														bgcolor: "primary.50",
+														borderColor: "primary.100",
+														borderWidth: "1px",
+														color: "primary.600",
 														fontSize: "1.5rem",
 														p: 1,
 														borderRadius: "4px",
@@ -194,20 +212,38 @@ const AppDrawer: React.FC<{ open: boolean; toggleDrawer: () => void }> = ({
 									},
 								}}
 							/>
+							<Tooltip
+								title={"Collapse Drawer"}
+								placement={"right"}
+								arrow
+							>
+								<IconButton
+									onClick={toggleDrawer}
+									color={"primary"}
+									sx={{
+										color: "primary.600",
+									}}
+								>
+									{open ? <RiMenuFoldLine /> : <RiMenuUnfoldLine />}
+								</IconButton>
+							</Tooltip>
+						</Paper>
+					) : (
+						<Tooltip
+							title={"Expand Drawer"}
+							placement={"right"}
+							arrow
+						>
 							<IconButton
 								onClick={toggleDrawer}
 								color={"primary"}
+								sx={{
+									color: "primary.600",
+								}}
 							>
 								{open ? <RiMenuFoldLine /> : <RiMenuUnfoldLine />}
 							</IconButton>
-						</Paper>
-					) : (
-						<IconButton
-							onClick={toggleDrawer}
-							color={"primary"}
-						>
-							{open ? <RiMenuFoldLine /> : <RiMenuUnfoldLine />}
-						</IconButton>
+						</Tooltip>
 					)}
 				</DrawerFooter>
 			</Drawer>
