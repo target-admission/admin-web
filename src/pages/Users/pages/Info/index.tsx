@@ -1,5 +1,5 @@
-import useQueryContext from "@/hooks/useQueryContext";
 import React from "react";
+import useQueryContext from "@/hooks/useQueryContext";
 
 const Item: React.FC = () => {
 	const { search } = useQueryContext();

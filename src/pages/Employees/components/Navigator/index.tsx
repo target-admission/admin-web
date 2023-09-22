@@ -64,7 +64,7 @@ const Navigator: React.FC = () => {
 		);
 	};
 
-	const { search, setSearch } = useQueryContext();
+	const { search, setSearch, setFilterField, watch } = useQueryContext();
 
 	return (
 		<>
@@ -121,12 +121,14 @@ const Navigator: React.FC = () => {
 						Sort By:
 					</p>
 					<Select
-						defaultValue="created_at"
+						value={watch("sort")}
+						onChange={(v) => setFilterField("sort", v || null)}
 						bordered={false}
+						popupMatchSelectWidth={false}
 						options={[
-							{ value: "-created_at", label: "Newest" },
-							{ value: "-updated_at", label: "Last Updated" },
-							{ value: "created_at", label: "Oldest" },
+							{ value: "created_at", label: "Newest" },
+							{ value: "updated_at", label: "Last Updated" },
+							{ value: "-created_at", label: "Oldest" },
 						]}
 					/>
 				</div>

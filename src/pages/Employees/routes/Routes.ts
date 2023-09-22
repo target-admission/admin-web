@@ -8,6 +8,11 @@ const Routes = [
 		navigator: true,
 	},
 	{
+		path: ROUTES.LIST,
+		Component: lazy(() => import("../pages/List")),
+		navigator: true,
+	},
+	{
 		path: ROUTES.TRASH,
 		Component: lazy(() => import("../pages/Trash")),
 		navigator: true,

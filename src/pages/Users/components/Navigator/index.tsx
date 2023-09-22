@@ -7,13 +7,14 @@ import {
 	// DatePicker,
 	Menu,
 } from "antd";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, generatePath, useLocation, useNavigate } from "react-router-dom";
 
 import { Input, Select } from "antd";
 import { InlineIcon } from "@iconify/react";
 import { ROUTES } from "@pages/Employees/routes/path";
 import DatePicker from "@components/antd/DatePicker";
 import useQueryContext from "@/hooks/useQueryContext";
+import BASE_APP_ROUTES from "@/routes/base-routes";
 
 const items: MenuProps["items"] = [
 	{
@@ -49,27 +50,31 @@ const items: MenuProps["items"] = [
 ];
 
 const Navigator: React.FC = () => {
+	const baseURL = BASE_APP_ROUTES.PRIVATE_ROUTES.USERS;
 	// To get the current location pathname
-
 	let location = useLocation();
 
 	// To route
 	const navigate = useNavigate();
 	const onClick: MenuProps["onClick"] = (e) => {
-		navigate(e.key);
+		navigate(
+			generatePath("/app/:base", {
+				base: generatePath(baseURL, { "*": e.key }),
+			})
+		);
 	};
 
-	const { search, setSearch } = useQueryContext();
+	const { search, setSearch, setFilterField, watch } = useQueryContext();
 
 	return (
 		<>
 			<div className="flex flex-row items-center justify-between gap-2 p-3 text-text">
 				<h1 className="text-2xl md:text-3xl font-bold">Users</h1>
 				<Link
-					to={"/app/users/create"}
+					to={"/app/employees/create"}
 					className="text-sm font-bold underline"
 				>
-					Create <span className="hidden md:inline">Employee</span>
+					Create <span className="hidden md:inline">User</span>
 				</Link>
 			</div>
 
@@ -116,14 +121,14 @@ const Navigator: React.FC = () => {
 						Sort By:
 					</p>
 					<Select
-						defaultValue="created_at"
+						value={watch("sort")}
+						onChange={(v) => setFilterField("sort", v || null)}
 						bordered={false}
-						showArrow={false}
-						dropdownMatchSelectWidth={false}
+						popupMatchSelectWidth={false}
 						options={[
-							{ value: "-created_at", label: "Newest" },
-							{ value: "-updated_at", label: "Last Updated" },
-							{ value: "created_at", label: "Oldest" },
+							{ value: "created_at", label: "Newest" },
+							{ value: "updated_at", label: "Last Updated" },
+							{ value: "-created_at", label: "Oldest" },
 						]}
 					/>
 				</div>

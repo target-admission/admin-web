@@ -36,7 +36,13 @@ export const QueryProvider: React.FC<{ children: React.ReactNode }> = ({
 		setPage,
 		setSearch,
 		watch,
-	} = usePaginate();
+	} = usePaginate({
+		defaultParams: {
+			filters: {
+				sort: "created_at",
+			},
+		},
+	});
 
 	return (
 		<QueryContext.Provider
