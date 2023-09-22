@@ -31,7 +31,7 @@ const getValidateUser = () => {
 };
 
 export const useGetValidation = (token: string | null) => {
-	return useQuery(["validate", token], getValidateUser, {
+	return useQuery(["/admin/validate", token], getValidateUser, {
 		enabled: !!token,
 		retry: 1,
 		onError: async (error: { request: { status: number } }) => {
@@ -58,7 +58,7 @@ export const useUpdateUserInfo = () => {
 	const query = useQueryClient();
 	return useMutation([], updateUserInfo, {
 		onSuccess: () => {
-			query.invalidateQueries(["validate"]);
+			query.invalidateQueries(["/admin/validate"]);
 		},
 	});
 };
