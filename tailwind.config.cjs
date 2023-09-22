@@ -3,6 +3,34 @@ module.exports = {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
 		extend: {
+			fontFamily: {
+				sans: [
+					"Lexend",
+					"ui-sans-serif",
+					"system-ui",
+					"-apple-system",
+					"BlinkMacSystemFont",
+					"Segoe UI",
+					"Roboto",
+					"Helvetica Neue",
+					"Arial",
+					"Noto Sans",
+					"sans-serif",
+					"Apple Color Emoji",
+					"Segoe UI Emoji",
+					"Segoe UI Symbol",
+					"Noto Color Emoji",
+				],
+				serif: [
+					"Lexend",
+					"ui-serif",
+					"Georgia",
+					"Cambria",
+					"Times New Roman",
+					"Times",
+					"serif",
+				],
+			},
 			colors: {
 				primary: {
 					DEFAULT: "#f36d6c",
