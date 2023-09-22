@@ -24,6 +24,14 @@
 .ant-message {
 	z-index: 1220;
 }
+.ant-picker-dropdown,
+.ant-select-dropdown {
+	z-index: 1400 !important;
+}
+
+input.ant-input {
+	color: #4a6979 !important;
+}
 
 /* NProgess Color */
 #nprogress {
@@ -31,16 +39,16 @@
 }
 
 #nprogress .bar {
-	background: #664980 !important;
+	background: #f9a428 !important;
 	height: 4px !important;
 }
 
 #nprogress .spinner-icon {
-	border-top-color: #664980 !important;
-	border-left-color: #664980 !important;
+	border-top-color: #f9a428 !important;
+	border-left-color: #fcd294 !important;
 	/* z-index: 1000000000 !important; */
 }
 
 #nprogress .peg {
-	box-shadow: 0 0 10px #33164d, 0 0 5px #33164d !important;
+	box-shadow: 0 0 10px #f9a428, 0 0 5px #fcd294 !important;
 }
