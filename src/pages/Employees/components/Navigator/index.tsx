@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react";
 
 import type { MenuProps } from "antd";
 import {
+	Button,
 	// DatePicker,
 	Menu,
 } from "antd";
@@ -22,8 +23,8 @@ const items: MenuProps["items"] = [
 		key: ROUTES.OVERVIEW,
 		icon: (
 			<Icon
-				icon="ic:twotone-person-pin"
-				className="text-xl"
+				icon="icon-park-outline:view-grid-list"
+				className="text-base"
 			/>
 		),
 	},
@@ -32,8 +33,8 @@ const items: MenuProps["items"] = [
 		key: ROUTES.LIST,
 		icon: (
 			<Icon
-				icon="ic:twotone-person-pin"
-				className="text-xl"
+				icon="fluent:data-funnel-24-regular"
+				className="text-base"
 			/>
 		),
 	},
@@ -43,7 +44,7 @@ const items: MenuProps["items"] = [
 		icon: (
 			<Icon
 				icon="mdi:trash-can-outline"
-				className="text-xl"
+				className="text-lg"
 			/>
 		),
 	},
@@ -69,12 +70,18 @@ const Navigator: React.FC = () => {
 	return (
 		<>
 			<div className="flex flex-row items-center justify-between gap-2 p-3 text-text">
-				<h1 className="text-2xl md:text-3xl font-bold">Employees</h1>
-				<Link
-					to={"/app/employees/create"}
-					className="text-sm font-bold underline"
-				>
-					Create <span className="hidden md:inline">Employee</span>
+				<h1 className="text-xl md:text-2xl flex flex-row items-center gap-4 font-bold">
+					<Icon icon="clarity:employee-group-line" />
+					Employees
+				</h1>
+				<Link to={"/app/employees/create"}>
+					<Button
+						type="dashed"
+						className="flex flex-row items-center"
+						icon={<Icon icon="mdi:plus" />}
+					>
+						Create
+					</Button>
 				</Link>
 			</div>
 

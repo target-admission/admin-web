@@ -23,7 +23,7 @@ const items: MenuProps["items"] = [
 		icon: (
 			<Icon
 				icon="ic:twotone-person-pin"
-				className="text-xl"
+				className="text-base"
 			/>
 		),
 	},
@@ -43,7 +43,7 @@ const items: MenuProps["items"] = [
 		icon: (
 			<Icon
 				icon="mdi:trash-can-outline"
-				className="text-xl"
+				className="text-lg"
 			/>
 		),
 	},
@@ -69,7 +69,10 @@ const Navigator: React.FC = () => {
 	return (
 		<>
 			<div className="flex flex-row items-center justify-between gap-2 p-3 text-text">
-				<h1 className="text-2xl md:text-3xl font-bold">Users</h1>
+				<h1 className="text-xl md:text-2xl flex flex-row items-center gap-4 font-bold">
+					<Icon icon="la:users" />
+					Users
+				</h1>
 			</div>
 
 			<div className="flex flex-col md:flex-row justify-between gap-2 border-b">
