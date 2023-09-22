@@ -18,10 +18,6 @@ const Routes = [
 		navigator: true,
 	},
 	{
-		path: ROUTES.CREATE,
-		Component: lazy(() => import("../pages/Create")),
-	},
-	{
 		path: ROUTES.INFO,
 		Component: lazy(() => import("../pages/Info")),
 	},

@@ -7,7 +7,7 @@ import {
 	// DatePicker,
 	Menu,
 } from "antd";
-import { Link, generatePath, useLocation, useNavigate } from "react-router-dom";
+import { generatePath, useLocation, useNavigate } from "react-router-dom";
 
 import { Input, Select } from "antd";
 import { InlineIcon } from "@iconify/react";
@@ -70,12 +70,6 @@ const Navigator: React.FC = () => {
 		<>
 			<div className="flex flex-row items-center justify-between gap-2 p-3 text-text">
 				<h1 className="text-2xl md:text-3xl font-bold">Users</h1>
-				<Link
-					to={"/app/employees/create"}
-					className="text-sm font-bold underline"
-				>
-					Create <span className="hidden md:inline">User</span>
-				</Link>
 			</div>
 
 			<div className="flex flex-col md:flex-row justify-between gap-2 border-b">
