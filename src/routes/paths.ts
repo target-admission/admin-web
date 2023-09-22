@@ -6,5 +6,6 @@ export const PUBLIC_ROUTES = {
 
 export const PRIVATE_ROUTES = {
   DASHBOARD: "",
+  SETTINGS: "settings/*",
   NOTFOUND: "*",
 };
