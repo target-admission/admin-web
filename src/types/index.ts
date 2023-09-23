@@ -1,5 +1,6 @@
 export type IUserId = string | number | undefined;
 export type ISessionId = string | number | undefined;
+export type IEmployeeId = string | number | undefined;
 
 //data grid types
 
