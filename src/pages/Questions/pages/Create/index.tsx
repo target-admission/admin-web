@@ -17,7 +17,7 @@ const Create: React.FC = () => {
     // resolver: joiResolver(loginResolver),
   });
 
-  // const { exam, isExamLoading, searchExam } = useExam();
+  const { exam, isExamLoading, searchExam } = useExam();
   const { topic, isTopicLoading, searchTopic } = useTopic();
   console.log(topic);
 
@@ -155,6 +155,30 @@ const Create: React.FC = () => {
                 options={topic}
                 onSearch={searchTopic}
                 loading={isTopicLoading}
+                status={error ? "error" : ""}
+              />
+            )}
+          />
+          <Label className="my-1">Exam</Label>
+          <Controller
+            control={control}
+            name={"exam_id"}
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
+              <Select
+                value={value}
+                size="large"
+                allowClear
+                showSearch
+                className="w-full"
+                placeholder={"Select a Subject..."}
+                suffixIcon={<Iconify icon={"mingcute:search-3-line"} />}
+                onChange={onChange}
+                options={exam}
+                onSearch={searchExam}
+                loading={isExamLoading}
                 status={error ? "error" : ""}
               />
             )}
