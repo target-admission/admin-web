@@ -7,6 +7,10 @@ const Routes = [
 		Component: lazy(() => import("../pages/Details")),
 	},
 	{
+		path: ROUTES.EDIT,
+		Component: lazy(() => import("../pages/Edit")),
+	},
+	{
 		path: ROUTES.NOTFOUND,
 		Component: lazy(() => import("@/pages/NotFound")),
 	},

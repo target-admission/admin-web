@@ -1,19 +1,43 @@
 import React from "react";
 import useQueryContext from "@/hooks/useQueryContext";
+import { DataGrid } from "@mui/x-data-grid";
+import Column from "./components/Column";
+import { useNavigate } from "react-router-dom";
 import { useGetEmployees } from "@/queries/employees";
-import { Spin } from "antd";
 
 const List: React.FC = () => {
-	const { getQueryParams } = useQueryContext();
+	const navigate = useNavigate();
+	const {
+		getQueryParams,
+		page,
+		limit = 10,
+		setPage,
+		setLimit,
+	} = useQueryContext();
+	const { data, isLoading } = useGetEmployees({ ...getQueryParams() });
 
-	const { data, isLoading } = useGetEmployees({
-		...getQueryParams(),
-	});
-	console.log(data);
 	return (
-		<Spin spinning={isLoading}>
-			<div className="min-h-[60vh]"></div>
-		</Spin>
+		<div className="p-3 w-full h-full max-h-[500px]">
+			<DataGrid
+				columns={Column()}
+				rows={data?.data || []}
+				loading={isLoading}
+				rowCount={data?.data?.total || 0}
+				paginationModel={{
+					page,
+					pageSize: limit,
+				}}
+				onPaginationModelChange={(params) => {
+					setPage(params.page);
+					setLimit(params.pageSize);
+				}}
+				pageSizeOptions={[10, 25, 50, 100, 200]}
+				paginationMode={"server"}
+				onRowDoubleClick={(row) => navigate(`/app/employees/i/${row.id}`)}
+				disableRowSelectionOnClick
+				disableColumnFilter
+			/>
+		</div>
 	);
 };
 
