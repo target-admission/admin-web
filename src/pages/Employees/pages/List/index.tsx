@@ -23,7 +23,7 @@ const List: React.FC = () => {
         columns={Column()}
         rows={data?.data || []}
         loading={isLoading}
-        rowCount={data?.data?.total || 0}
+        rowCount={data?.total || 0}
         paginationModel={{
           page,
           pageSize: limit,

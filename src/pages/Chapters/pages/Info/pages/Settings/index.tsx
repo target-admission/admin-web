@@ -4,24 +4,24 @@ import { Button as AntButton, Spin, Popconfirm } from "antd";
 import { useParams } from "react-router-dom";
 import { message } from "@components/antd/message";
 import handleResponse from "@/utilities/handleResponse";
-import { useDeleteSubject, useGetSubjectsById } from "@/queries/subjects";
+import { useDeleteChapters, useGetChaptersById } from "@/queries/chapters";
 
 const Security: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { data, isLoading } = useGetSubjectsById(id);
+  const { data, isLoading } = useGetChaptersById(id);
 
   const { mutateAsync: Delete, isLoading: isDeleteLoading } =
-    useDeleteSubject();
+    useDeleteChapters();
 
   const onDelete = async (permanent: any = null, restore: any = null) => {
     message.open({
       type: "loading",
       content: permanent
-        ? "Deleting Subject Permanently.."
+        ? "Deleting Chapter Permanently.."
         : restore
-        ? "Restoring Subject.."
-        : "Deleting Subject..",
+        ? "Restoring Chapter.."
+        : "Deleting Chapter..",
       duration: 0,
     });
     const res = await handleResponse(() =>
@@ -53,17 +53,17 @@ const Security: React.FC = () => {
           {data?.deleted_at ? (
             <>
               <div className="col-span-2">
-                <p className=" text-md font-semibold">Restore Subject</p>
+                <p className=" text-md font-semibold">Restore Chapter</p>
                 <p className="text-xs text-text-light">
-                  Restoring a subject involves reinstating their previously
+                  Restoring a chapter involves reinstating their previously
                   deleted or suspended account, and allowing them to regain
                   access and functionality."
                 </p>
               </div>
               <div>
                 <Popconfirm
-                  title="Restore Subject?"
-                  description="Are you sure to restore the subject?"
+                  title="Restore Chapter?"
+                  description="Are you sure to restore the chapter?"
                   onConfirm={() => onDelete(null, true)}
                   okButtonProps={{
                     type: "primary",
@@ -90,16 +90,16 @@ const Security: React.FC = () => {
           ) : (
             <>
               <div className="col-span-2">
-                <p className=" text-md font-semibold">Delete Subject</p>
+                <p className=" text-md font-semibold">Delete Chapter</p>
                 <p className="text-xs text-text-light">
-                  Deleting a subject involves temporarily removing their account
+                  Deleting a chapter involves temporarily removing their account
                   and associated data.
                 </p>
               </div>
               <div>
                 <Popconfirm
-                  title="Delete Subject?"
-                  description="Are you sure to delete this subject?"
+                  title="Delete Chapter?"
+                  description="Are you sure to delete this chapter?"
                   onConfirm={() => onDelete()}
                   okButtonProps={{
                     type: "primary",
@@ -128,13 +128,13 @@ const Security: React.FC = () => {
           <div className="col-span-2">
             <p className=" text-md font-semibold">Permanently Delete</p>
             <p className="text-xs text-text-light">
-              Deleting a subject involves permanently removing their account and
-              associated data. You will not be able to recover this subject.
+              Deleting a chapter involves permanently removing their account and
+              associated data. You will not be able to recover this chapter.
             </p>
           </div>
           <div>
             <Popconfirm
-              title="Delete Subject Permanently?"
+              title="Delete Chapter Permanently?"
               description="Are you sure to delete permanently?"
               onConfirm={() => onDelete(true)}
               okButtonProps={{
