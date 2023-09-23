@@ -1,6 +1,7 @@
 import instance from "@/services";
 import { ISubjectId } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { ICreateSubject } from "./types";
 
 const getSubjects = (params: any) => {
   return instance.get(`/subjects`, {
@@ -13,6 +14,17 @@ export const useGetSubjects = (params: any) => {
     select(data) {
       return data.data;
     },
+  });
+};
+
+const createSubject = (data: ICreateSubject) => {
+  return instance.post("/subjects", data);
+};
+
+export const useCreateSubject = () => {
+  const queryClient = useQueryClient();
+  return useMutation(createSubject, {
+    onSuccess: () => queryClient.invalidateQueries(["/subjects"]),
   });
 };
 
