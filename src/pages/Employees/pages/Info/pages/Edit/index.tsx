@@ -62,7 +62,8 @@ const Edit: React.FC = () => {
 		});
 		const res = await handleResponse(() =>
 			update({
-				...data,
+				id,
+				data,
 			})
 		);
 		message.destroy();
@@ -334,15 +335,17 @@ const Edit: React.FC = () => {
 						</div>
 					</div>
 
-					<Button
-						variant="contained"
-						size="large"
-						type={"submit"}
-						className="w-full mt-4"
-						disabled={isEmployeeUpdating}
-					>
-						Submit
-					</Button>
+					{isDirty && (
+						<Button
+							variant="contained"
+							size="large"
+							type={"submit"}
+							className="w-full mt-4"
+							disabled={isEmployeeUpdating}
+						>
+							Save Changes
+						</Button>
+					)}
 				</form>
 			</div>
 		</Spin>
