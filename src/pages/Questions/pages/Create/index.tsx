@@ -1,5 +1,5 @@
 import React from "react";
-import { useCreateTopics } from "@/queries/topics";
+import { useCreateQuestions } from "@/queries/questions";
 import { useForm, Controller } from "react-hook-form";
 import { message } from "@components/antd/message";
 import handleResponse from "@/utilities/handleResponse";
@@ -7,22 +7,20 @@ import Label from "@components/Label";
 import { Divider, Input, Select } from "antd";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import Iconify from "@components/iconify";
-import useChapter from "@/hooks/useChapter";
 
 const Create: React.FC = () => {
   // Get Subject
-  const { chapter, isChapterLoading, searchChapter } = useChapter();
   const { handleSubmit, control, reset } = useForm({
     // resolver: joiResolver(loginResolver),
   });
-  const { mutateAsync: create, isLoading: topicCreating } = useCreateTopics();
+  const { mutateAsync: create, isLoading: questionCreating } =
+    useCreateQuestions();
 
   // On Submit Function
   const onSubmit = async (data: any) => {
     message.open({
       type: "loading",
-      content: "Creating Topic..",
+      content: "Creating Question..",
       duration: 0,
     });
     const res = await handleResponse(
@@ -44,17 +42,17 @@ const Create: React.FC = () => {
   return (
     <div>
       <div className="max-w-md mt-6 mx-auto text-center">
-        <p className="text-lg font-medium mb-2">Create New Topic</p>
+        <p className="text-lg font-medium mb-2">Create New Question</p>
         <p className="text-sm text-text-light">
-          Initiate a new topic creation process. Input topic title, content, and
-          preferences efficiently, empowering you to curate and organize your
-          content effectively on this page.
+          Create questions with ease. Input prompts, answers, and details
+          effortlessly, simplifying the process of adding and organizing
+          questions on this dedicated creation page.
         </p>
         <Link
-          to={"/app/topics/list"}
+          to={"/app/questions/list"}
           className="text-sm font-medium text-text underline"
         >
-          <p className="mt-3">View All Topics</p>
+          <p className="mt-3">View All Questions</p>
         </Link>
         <Divider />
       </div>
@@ -63,32 +61,7 @@ const Create: React.FC = () => {
         className="max-w-xl mb-4 mx-auto flex flex-col gap-2"
       >
         <div className="flex flex-col gap-2 border p-3 rounded-md bg-slate-50">
-          <div>
-            <Label className="my-1">Chapter</Label>
-            <Controller
-              control={control}
-              name={"chapter_id"}
-              render={({
-                field: { onChange, onBlur, value },
-                fieldState: { error },
-              }) => (
-                <Select
-                  value={value}
-                  size="large"
-                  showSearch
-                  className="w-full"
-                  placeholder={"Select a Chapter..."}
-                  suffixIcon={<Iconify icon={"mingcute:search-3-line"} />}
-                  onChange={onChange}
-                  options={chapter}
-                  onSearch={searchChapter}
-                  loading={isChapterLoading}
-                  status={error ? "error" : ""}
-                />
-              )}
-            />
-          </div>
-          <Label isRequired>Name</Label>
+          <Label isRequired>Question</Label>
           <Controller
             control={control}
             name={"name"}
@@ -99,7 +72,7 @@ const Create: React.FC = () => {
             }) => (
               <Input
                 className="relative w-full"
-                placeholder={"Enter Topic Name"}
+                placeholder={"Enter Question Name"}
                 size={"large"}
                 onChange={onChange}
                 onBlur={onBlur}
@@ -109,11 +82,34 @@ const Create: React.FC = () => {
               />
             )}
           />
-
-          <Label>Description</Label>
+          <Label className="my-1">Question Type</Label>
           <Controller
             control={control}
-            name={"description"}
+            name={"type"}
+            defaultValue={"MCQ"}
+            // rules={{ required: true }}
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
+              <Select
+                placeholder={"Question Type"}
+                size={"large"}
+                className="relative w-full"
+                onChange={onChange}
+                onBlur={onBlur}
+                value={value}
+                options={[
+                  { value: "MCQ", label: "MCQ" },
+                  { value: "WRITTEN ", label: "WRITTEN " },
+                ]}
+              />
+            )}
+          />
+          <Label>Explaination</Label>
+          <Controller
+            control={control}
+            name={"explaination"}
             // rules={{ required: true }}
             render={({
               field: { onChange, onBlur, value },
@@ -121,7 +117,7 @@ const Create: React.FC = () => {
             }) => (
               <Input.TextArea
                 className="relative w-full"
-                placeholder={"Enter a Description"}
+                placeholder={"Enter an Explaination to the Question"}
                 size={"large"}
                 onChange={onChange}
                 onBlur={onBlur}
@@ -138,7 +134,7 @@ const Create: React.FC = () => {
           size="large"
           type={"submit"}
           className="w-full mt-4"
-          disabled={topicCreating}
+          disabled={questionCreating}
         >
           Submit
         </Button>
