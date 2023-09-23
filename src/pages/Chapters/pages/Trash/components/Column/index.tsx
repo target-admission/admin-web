@@ -1,5 +1,5 @@
-import { useDeleteSubject } from "@/queries/subjects";
-import { ISubjectId } from "@/types";
+import { useDeleteChapters } from "@/queries/chapters";
+import { IChapterId } from "@/types";
 import handleResponse from "@/utilities/handleResponse";
 import { message } from "@components/antd/message";
 import Iconify from "@components/iconify";
@@ -10,20 +10,20 @@ import { Link } from "react-router-dom";
 
 const Column = (): GridColDef[] => {
   const { mutateAsync: Delete, isLoading: isDeleteLoading } =
-    useDeleteSubject();
+    useDeleteChapters();
 
   const onDelete = async (
-    id: ISubjectId,
+    id: IChapterId,
     permanent: any = null,
     restore: any = null
   ) => {
     message.open({
       type: "loading",
       content: permanent
-        ? "Deleting Subject Permanently.."
+        ? "Deleting Chapter Permanently.."
         : restore
-        ? "Restoring Subject.."
-        : "Deleting Subject..",
+        ? "Restoring Chapter.."
+        : "Deleting Chapter..",
       duration: 0,
     });
     const res = await handleResponse(() =>
@@ -57,6 +57,20 @@ const Column = (): GridColDef[] => {
       minWidth: 50,
       filterable: false,
       sortable: false,
+    },
+    {
+      headerName: "Subject",
+      headerAlign: "center",
+      field: "subject",
+      align: "center",
+      flex: 1,
+      width: 180,
+      minWidth: 150,
+      filterable: false,
+      sortable: false,
+      valueFormatter(params) {
+        return params.value?.name || "-";
+      },
     },
     {
       headerName: "Title",
@@ -107,7 +121,7 @@ const Column = (): GridColDef[] => {
           disableFocusRipple
           className="hover: bg-transparent"
           icon={
-            <Link to={`/app/subjects/i/${params.id}`}>
+            <Link to={`/app/chapters/i/${params.id}`}>
               <Button type="dashed">View</Button>
             </Link>
           }
@@ -115,7 +129,7 @@ const Column = (): GridColDef[] => {
         />,
         <GridActionsCellItem
           icon={
-            <Link to={`/app/subjects/i/${params.id}/edit`}>
+            <Link to={`/app/chapters/i/${params.id}/edit`}>
               <Iconify icon={"fluent:edit-12-regular"} className="text-lg" />
             </Link>
           }
