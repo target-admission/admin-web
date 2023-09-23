@@ -40,21 +40,21 @@ const Item: React.FC = () => {
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 content-center gap-2 py-3">
-          <div className="grid grid-cols-3 border justify-items-start gap-1 border-slate-200 p-5 break-all rounded-3xl">
-            <p>Gender :</p>
-            <p className="col-span-2">{data?.gender}</p>
-            <p>Phone :</p>
-            <p className="col-span-2">{data?.phone}</p>
-            <p>Email :</p>
-            <p className="col-span-2">{data?.email}</p>
-            <p>DOB :</p>
-            <p className="col-span-2">{moment(data?.dob).format("ll")}</p>
-            <p>Address :</p>
-            <p className="col-span-2">{data?.address}</p>
+        <div className="grid grid-cols-1 md:grid-cols-4 content-center gap-2 py-3">
+          <div className="grid grid-cols-3 col-span-3 border justify-items-start gap-1 border-slate-200 p-5 break-all rounded-3xl">
+            <p>Gender</p>
+            <p className="col-span-2">: {data?.gender}</p>
+            <p>Phone</p>
+            <p className="col-span-2">: {data?.phone}</p>
+            <p>Email</p>
+            <p className="col-span-2">: {data?.email}</p>
+            <p>Date of Birth</p>
+            <p className="col-span-2">: {moment(data?.dob).format("ll")}</p>
+            <p>Address</p>
+            <p className="col-span-2">: {data?.address}</p>
           </div>
-          <div className="border border-slate-200 p-3 rounded-3xl">
-            Badges Info
+          <div className="flex items-center justify-center border border-slate-200 p-3 rounded-3xl">
+            No Badge
           </div>
         </div>
       </div>

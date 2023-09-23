@@ -11,6 +11,10 @@ const Routes = [
     Component: lazy(() => import("../pages/Session")),
   },
   {
+    path: ROUTES.SETTINGS,
+    Component: lazy(() => import("../pages/Settings")),
+  },
+  {
     path: ROUTES.NOTFOUND,
     Component: lazy(() => import("@/pages/NotFound")),
   },
