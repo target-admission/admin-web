@@ -1,4 +1,4 @@
-import { useGetChaptersById, useUpdateChaptersById } from "@/queries/chapters";
+import { useGetTopicsById, useUpdateTopicsById } from "@/queries/topics";
 import handleResponse from "@/utilities/handleResponse";
 import Label from "@components/Label";
 import { Input, Select, Spin, message } from "antd";
@@ -9,12 +9,12 @@ import { Avatar, Button } from "@mui/material";
 import previewAttachment from "@/utilities/s3Attachment";
 import { stringAvatar } from "@/utilities/stringAvatar";
 import moment from "moment";
-import useSubject from "@/hooks/useSubject";
+import useChapter from "@/hooks/useChapter";
 import Iconify from "@components/iconify";
 
 const Edit: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, isLoading } = useGetChaptersById(id);
+  const { data, isLoading } = useGetTopicsById(id);
   const {
     handleSubmit,
     control,
@@ -23,31 +23,31 @@ const Edit: React.FC = () => {
   } = useForm({
     // resolver: joiResolver(loginResolver),
   });
-  const [chapterInfo, setChapterInfo] = React.useState<any>([]);
-  const { subject, isSubjectLoading, searchSubject } = useSubject();
-  const { mutateAsync: update, isLoading: isChapterUpdating } =
-    useUpdateChaptersById();
+  const [topicInfo, setTopicInfo] = React.useState<any>([]);
+  const { chapter, isChapterLoading, searchChapter } = useChapter();
+  const { mutateAsync: update, isLoading: isTopicUpdating } =
+    useUpdateTopicsById();
 
   React.useEffect(() => {
     if (!data) return;
-    setChapterInfo(data);
+    setTopicInfo(data);
   }, [data]);
 
   React.useEffect(() => {
-    if (!chapterInfo || isDirty) return;
+    if (!topicInfo || isDirty) return;
     reset({
-      name: chapterInfo?.name,
-      subject_id: chapterInfo?.subject_id,
-      description: chapterInfo?.description,
-      cover_picture: chapterInfo?.cover_picture,
+      name: topicInfo?.name,
+      chapter_id: topicInfo?.chapter_id,
+      description: topicInfo?.description,
+      cover_picture: topicInfo?.cover_picture,
     });
-  }, [chapterInfo]);
+  }, [topicInfo]);
 
   // On Submit Function
   const onSubmit = async (data: any) => {
     message.open({
       type: "loading",
-      content: "Updating Chapter..",
+      content: "Updating Topic..",
       duration: 0,
     });
     const res = await handleResponse(() =>
@@ -96,12 +96,12 @@ const Edit: React.FC = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="max-w-xl mb-4 mx-auto flex flex-col gap-2"
         >
-          <p className="font-medium mb-2">Chapter Information</p>
+          <p className="font-medium mb-2">Topic Information</p>
           <div className="flex flex-col gap-2 border p-3 rounded-md bg-slate-50">
-            <Label className="my-1">Subject</Label>
+            <Label className="my-1">Chapter</Label>
             <Controller
               control={control}
-              name={"subject_id"}
+              name={"chapter_id"}
               render={({
                 field: { onChange, onBlur, value },
                 fieldState: { error },
@@ -111,12 +111,12 @@ const Edit: React.FC = () => {
                   size="large"
                   showSearch
                   className="w-full"
-                  placeholder={"Select a Subject..."}
+                  placeholder={"Select a Chapter..."}
                   suffixIcon={<Iconify icon={"mingcute:search-3-line"} />}
                   onChange={onChange}
-                  options={subject}
-                  onSearch={searchSubject}
-                  loading={isSubjectLoading}
+                  options={chapter}
+                  onSearch={searchChapter}
+                  loading={isChapterLoading}
                   status={error ? "error" : ""}
                 />
               )}
@@ -171,7 +171,7 @@ const Edit: React.FC = () => {
               size="large"
               type={"submit"}
               className="w-full mt-4"
-              disabled={isChapterUpdating}
+              disabled={isTopicUpdating}
             >
               Save Changes
             </Button>
