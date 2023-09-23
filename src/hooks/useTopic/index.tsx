@@ -18,15 +18,13 @@ const useTopic = () => {
   React.useEffect(() => {
     if (!topicData) return;
     var d: IOption[] = [];
-    topicData?.data?.data?.map?.(
-      (s: { id: string; first_name: string; last_name: string }) => {
-        d.push({
-          value: s.id,
-          label: `${s.first_name} ${s.last_name}`,
-          data: s,
-        });
-      }
-    );
+    topicData?.data?.map?.((s: { id: string; name: string }) => {
+      d.push({
+        value: s.id,
+        label: s.name,
+        data: s,
+      });
+    });
     setTopic(d);
   }, [topicData]);
 

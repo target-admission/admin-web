@@ -7,12 +7,20 @@ import Label from "@components/Label";
 import { Divider, Input, Select } from "antd";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import useTopic from "@/hooks/useTopic";
+import useExam from "@/hooks/useExam";
+import Iconify from "@components/iconify";
 
 const Create: React.FC = () => {
   // Get Subject
   const { handleSubmit, control, reset } = useForm({
     // resolver: joiResolver(loginResolver),
   });
+
+  // const { exam, isExamLoading, searchExam } = useExam();
+  const { topic, isTopicLoading, searchTopic } = useTopic();
+  console.log(topic);
+
   const { mutateAsync: create, isLoading: questionCreating } =
     useCreateQuestions();
 
@@ -124,6 +132,29 @@ const Create: React.FC = () => {
                 value={value}
                 status={error ? "error" : ""}
                 //   suffix={<ErrorSuffix error={error} />}
+              />
+            )}
+          />
+          <Label className="my-1">Topic</Label>
+          <Controller
+            control={control}
+            name={"topic_id"}
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
+              <Select
+                value={value}
+                size="large"
+                showSearch
+                className="w-full"
+                placeholder={"Select a Subject..."}
+                suffixIcon={<Iconify icon={"mingcute:search-3-line"} />}
+                onChange={onChange}
+                options={topic}
+                onSearch={searchTopic}
+                loading={isTopicLoading}
+                status={error ? "error" : ""}
               />
             )}
           />
