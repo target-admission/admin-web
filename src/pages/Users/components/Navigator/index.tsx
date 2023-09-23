@@ -22,7 +22,7 @@ const items: MenuProps["items"] = [
 		key: ROUTES.OVERVIEW,
 		icon: (
 			<Icon
-				icon="ic:twotone-person-pin"
+				icon="icon-park-outline:view-grid-list"
 				className="text-base"
 			/>
 		),
@@ -32,7 +32,7 @@ const items: MenuProps["items"] = [
 		key: ROUTES.LIST,
 		icon: (
 			<Icon
-				icon="ic:twotone-person-pin"
+				icon="fluent:data-funnel-24-regular"
 				className="text-xl"
 			/>
 		),
@@ -49,7 +49,9 @@ const items: MenuProps["items"] = [
 	},
 ];
 
-const Navigator: React.FC = () => {
+const Navigator: React.FC<{ hideSearch?: boolean }> = ({
+	hideSearch = false,
+}) => {
 	const baseURL = BASE_APP_ROUTES.PRIVATE_ROUTES.USERS;
 	// To get the current location pathname
 	let location = useLocation();
@@ -90,45 +92,50 @@ const Navigator: React.FC = () => {
 					allowEmpty={[false, false]}
 				/>
 			</div>
-
-			<div className="flex flex-row items-center justify-between gap-2 p-3 mt-2">
-				<Input
-					allowClear
-					size="large"
-					className="font-semibold max-w-[220px]"
-					placeholder="Search..."
-					value={search}
-					onChange={(e) => {
-						setSearch(e.target.value || "");
-					}}
-					prefix={
-						<Icon
-							className="text-2xl mr-1 [&_.ant-menu-item-selected>.ant-menu-title-content]:text-text"
-							icon="mingcute:search-3-line"
+			{hideSearch ? (
+				<></>
+			) : (
+				<>
+					<div className="flex flex-row items-center justify-between gap-2 p-3 mt-2">
+						<Input
+							allowClear
+							size="large"
+							className="font-semibold max-w-[220px]"
+							placeholder="Search..."
+							value={search}
+							onChange={(e) => {
+								setSearch(e.target.value || "");
+							}}
+							prefix={
+								<Icon
+									className="text-2xl mr-1 [&_.ant-menu-item-selected>.ant-menu-title-content]:text-text"
+									icon="mingcute:search-3-line"
+								/>
+							}
 						/>
-					}
-				/>
-				<div className="flex flex-row items-center">
-					<p className="font-semibold text-sm underline flex items-center gap-1">
-						<InlineIcon
-							icon={"pepicons-pencil:down-up"}
-							className="text-xl"
-						/>{" "}
-						Sort By:
-					</p>
-					<Select
-						value={watch("sort")}
-						onChange={(v) => setFilterField("sort", v || null)}
-						bordered={false}
-						popupMatchSelectWidth={false}
-						options={[
-							{ value: "created_at", label: "Newest" },
-							{ value: "updated_at", label: "Last Updated" },
-							{ value: "-created_at", label: "Oldest" },
-						]}
-					/>
-				</div>
-			</div>
+						<div className="flex flex-row items-center">
+							<p className="font-semibold text-sm underline flex items-center gap-1">
+								<InlineIcon
+									icon={"pepicons-pencil:down-up"}
+									className="text-xl"
+								/>{" "}
+								Sort By:
+							</p>
+							<Select
+								value={watch("sort")}
+								onChange={(v) => setFilterField("sort", v || null)}
+								bordered={false}
+								popupMatchSelectWidth={false}
+								options={[
+									{ value: "created_at", label: "Newest" },
+									{ value: "updated_at", label: "Last Updated" },
+									{ value: "-created_at", label: "Oldest" },
+								]}
+							/>
+						</div>
+					</div>
+				</>
+			)}
 		</>
 	);
 };
