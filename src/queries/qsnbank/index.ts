@@ -17,7 +17,20 @@ export const useGetQsnBank = (params: any) => {
   });
 };
 
-const updateQsnBanksById = ({
+const getQsnBankById = (id?: string) => {
+  return instance.get(`/question-bank/${id}`);
+};
+
+export const useGetQsnBankById = (id?: string) => {
+  return useQuery(["/employees/:id", id], () => getQsnBankById(id), {
+    enabled: !!id,
+    select(data) {
+      return data.data.data;
+    },
+  });
+};
+
+const updateQsnBankById = ({
   id,
   data,
 }: {
@@ -31,7 +44,7 @@ const updateQsnBanksById = ({
 
 export const useUpdateQsnBankById = () => {
   const query = useQueryClient();
-  return useMutation(updateQsnBanksById, {
+  return useMutation(updateQsnBankById, {
     onSuccess: () => {
       query.invalidateQueries(["/question-bank"]);
       query.invalidateQueries(["/question-bank/:id"]);

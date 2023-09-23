@@ -1,14 +1,11 @@
 import React from "react";
-import { useCreateTopics } from "@/queries/topics";
 import { useForm, Controller } from "react-hook-form";
 import { message } from "@components/antd/message";
 import handleResponse from "@/utilities/handleResponse";
 import Label from "@components/Label";
-import { Divider, Input, Select } from "antd";
+import { Divider, Input } from "antd";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import Iconify from "@components/iconify";
-import useChapter from "@/hooks/useChapter";
 import { useCreateQsnBank } from "@/queries/qsnbank";
 
 const Create: React.FC = () => {
