@@ -1,5 +1,5 @@
-import { useDeleteTopics } from "@/queries/topics";
-import { ITopicId } from "@/types";
+import { useDeleteExams } from "@/queries/exams";
+import { IExamId } from "@/types";
 import handleResponse from "@/utilities/handleResponse";
 import { message } from "@components/antd/message";
 import Iconify from "@components/iconify";
@@ -9,20 +9,20 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 
 const Column = (): GridColDef[] => {
-  const { mutateAsync: Delete, isLoading: isDeleteLoading } = useDeleteTopics();
+  const { mutateAsync: Delete, isLoading: isDeleteLoading } = useDeleteExams();
 
   const onDelete = async (
-    id: ITopicId,
+    id: IExamId,
     permanent: any = null,
     restore: any = null
   ) => {
     message.open({
       type: "loading",
       content: permanent
-        ? "Deleting Topic Permanently.."
+        ? "Deleting Exam Permanently.."
         : restore
-        ? "Restoring Topic.."
-        : "Deleting Topic..",
+        ? "Restoring Exam.."
+        : "Deleting Exam..",
       duration: 0,
     });
     const res = await handleResponse(() =>
@@ -58,34 +58,6 @@ const Column = (): GridColDef[] => {
       sortable: false,
     },
     {
-      headerName: "Subject",
-      headerAlign: "center",
-      field: "subject",
-      align: "center",
-      flex: 1,
-      width: 180,
-      minWidth: 150,
-      filterable: false,
-      sortable: false,
-      valueFormatter(params) {
-        return params.value?.name || "-";
-      },
-    },
-    {
-      headerName: "Chapter",
-      headerAlign: "center",
-      field: "chapter",
-      align: "center",
-      flex: 1,
-      width: 180,
-      minWidth: 150,
-      filterable: false,
-      sortable: false,
-      valueFormatter(params) {
-        return params.value?.name || "-";
-      },
-    },
-    {
       headerName: "Title",
       headerAlign: "center",
       field: "name",
@@ -104,6 +76,67 @@ const Column = (): GridColDef[] => {
       align: "center",
       width: 280,
       minWidth: 250,
+      flex: 1,
+      filterable: false,
+      sortable: false,
+      valueFormatter(params) {
+        return params.value || "-";
+      },
+    },
+    {
+      headerName: "Question Bank",
+      headerAlign: "center",
+      field: "question_bank",
+      align: "center",
+      width: 180,
+      minWidth: 150,
+      // flex: 1,
+      filterable: false,
+      sortable: false,
+      // valueFormatter(params) {
+      //   return params.value.name || "-";
+      // },
+    },
+    {
+      headerName: "Exam Duration",
+      headerAlign: "center",
+      field: "duration",
+      align: "center",
+      width: 100,
+      minWidth: 80,
+      flex: 1,
+      filterable: false,
+      sortable: false,
+    },
+    {
+      headerName: "Negative Mark",
+      headerAlign: "center",
+      field: "negative_mark",
+      align: "center",
+      width: 100,
+      minWidth: 80,
+      flex: 1,
+      filterable: false,
+      sortable: false,
+    },
+    {
+      headerName: "Exam Type",
+      headerAlign: "center",
+      field: "type",
+      align: "center",
+      width: 100,
+      minWidth: 80,
+      flex: 1,
+      filterable: false,
+      sortable: false,
+    },
+    {
+      headerName: "Attendee Type",
+      headerAlign: "center",
+      field: "attendee_type",
+      align: "center",
+      width: 100,
+      minWidth: 80,
       flex: 1,
       filterable: false,
       sortable: false,
@@ -133,7 +166,7 @@ const Column = (): GridColDef[] => {
           disableFocusRipple
           className="hover: bg-transparent"
           icon={
-            <Link to={`/app/topics/i/${params.id}`}>
+            <Link to={`/app/exams/i/${params.id}`}>
               <Button type="dashed">View</Button>
             </Link>
           }
@@ -141,7 +174,7 @@ const Column = (): GridColDef[] => {
         />,
         <GridActionsCellItem
           icon={
-            <Link to={`/app/topics/i/${params.id}/edit`}>
+            <Link to={`/app/exams/i/${params.id}/edit`}>
               <Iconify icon={"fluent:edit-12-regular"} className="text-lg" />
             </Link>
           }

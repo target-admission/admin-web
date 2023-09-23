@@ -5,6 +5,7 @@ export type ISubjectId = string | number | undefined;
 export type IChapterId = string | number | undefined;
 export type ITopicId = string | number | undefined;
 export type IQsnBankId = string | number | undefined;
+export type IExamId = string | number | undefined;
 
 //data grid types
 
