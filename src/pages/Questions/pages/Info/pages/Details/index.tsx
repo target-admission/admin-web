@@ -9,6 +9,7 @@ import { useGetQuestionsById } from "@/queries/questions";
 const Details: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading } = useGetQuestionsById(id);
+  console.log(data);
   return (
     <Spin spinning={isLoading}>
       <div className="mx-auto max-w-2xl">
@@ -22,7 +23,7 @@ const Details: React.FC = () => {
           /> */}
           <div>
             <p className="text-2xl font-bold flex flex-row items-center gap-2">
-              {data?.name}
+              {data?.question}
               <Link to={`/app/topics/i/${data?.id}/edit`}>
                 <IconButton size="small">
                   <Iconify icon="fluent:edit-12-regular" />
@@ -41,21 +42,59 @@ const Details: React.FC = () => {
             </p>
           </div>
         </div>
-
         <div className="content-center gap-2 py-3">
-          <p className="font-medium mb-2 px-1">Topic Information</p>
-          <div className="grid grid-cols-3 border justify-items-start gap-1 border-slate-200 p-5 break-all rounded-lg">
-            <p className="text-text-light font-semibold">Name</p>
-            <p className="col-span-2">: {data?.name}</p>
-            <p className="text-text-light font-semibold">Description</p>
-            <p className="col-span-2 whitespace-pre-wrap">
-              : {data?.description}
-            </p>
-            <p className="text-text-light font-semibold">Subject</p>
-            <p className="col-span-2">: {data?.subject?.name || "-"}</p>
-            <p className="text-text-light font-semibold">Chapter</p>
-            <p className="col-span-2">: {data?.chapter?.name || "-"}</p>
-          </div>
+          {!!data?.answers?.length && (
+            <>
+              <p className="font-medium mb-2 px-1">Options</p>
+              <div className="border gap-1 border-slate-200 p-5 break-all rounded-lg">
+                {data?.answers?.map((ans: any) => (
+                  <div>&bull; {ans.title}</div>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+        <div className="content-center gap-2 py-3">
+          {!!data?.linked_exams?.length && (
+            <>
+              <p className="font-medium mb-2 px-1">Linked Exam</p>
+              <div className="grid grid-cols-3 border justify-items-start gap-1 border-slate-200 p-5 break-all rounded-lg">
+                <p className="text-text-light font-semibold">Name</p>
+                <p className="col-span-2">
+                  :{" "}
+                  <Link to={`/app/exams/i/${data?.linked_exams[0].id}`}>
+                    <span className="underline">
+                      {data?.linked_exams
+                        ?.flatMap((y: any) =>
+                          [y.question_bank.name, y.name].join(" ")
+                        )
+                        .join(", ")}
+                    </span>
+                  </Link>
+                </p>
+                <p className="text-text-light font-semibold">Attendee Type</p>
+                <p className="col-span-2">
+                  : {data?.linked_exams[0].attendee_type}
+                </p>
+                <p className="text-text-light font-semibold">Exam Duration</p>
+                <p className="col-span-2">
+                  :{" "}
+                  {data?.linked_exams[0]?.duration ? (
+                    <>{data?.linked_exams[0]?.duration}m</>
+                  ) : (
+                    "Unlimited"
+                  )}
+                </p>
+                <p className="text-text-light font-semibold">Live Date</p>
+                <p className="col-span-2">
+                  :{" "}
+                  {data?.linked_exams[0]?.live_datetime
+                    ? moment(data?.linked_exams[0]?.live_datetime).calendar()
+                    : "-"}
+                </p>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </Spin>

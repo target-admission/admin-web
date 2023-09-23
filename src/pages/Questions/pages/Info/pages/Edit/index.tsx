@@ -72,7 +72,7 @@ const Edit: React.FC = () => {
   return (
     <Spin spinning={isLoading}>
       <div>
-        <div className=" flex flex-col sm:flex-row items-start sm:items-center gap-5 border border-slate-200 p-3 rounded-3xl max-w-xl mb-4 mx-auto">
+        <div className=" flex flex-col sm:flex-row items-start sm:items-center gap-5 border border-slate-200 p-3 rounded-3xl max-w-xl mb-4 mx-auto px-6">
           {/* <Avatar
             className="rounded-2xl w-32 h-32 aspect-square"
             variant="square"
@@ -81,7 +81,7 @@ const Edit: React.FC = () => {
             {...stringAvatar(data?.name)}
           /> */}
           <div>
-            <p className="text-2xl font-bold flex flex-row items-center gap-2 px-6">
+            <p className="text-2xl font-bold flex flex-row items-center gap-2 ">
               {data?.question}
             </p>
             <p className="text-text-light text-xs mt-2">
