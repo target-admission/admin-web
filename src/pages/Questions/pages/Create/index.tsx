@@ -146,6 +146,7 @@ const Create: React.FC = () => {
               <Select
                 value={value}
                 size="large"
+                allowClear
                 showSearch
                 className="w-full"
                 placeholder={"Select a Subject..."}
