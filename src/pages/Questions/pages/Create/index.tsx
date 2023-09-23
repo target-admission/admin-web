@@ -6,7 +6,7 @@ import handleResponse from "@/utilities/handleResponse";
 import Label from "@components/Label";
 import { Divider, Input, Select } from "antd";
 import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useTopic from "@/hooks/useTopic";
 import useExam from "@/hooks/useExam";
 import Iconify from "@components/iconify";
@@ -15,7 +15,7 @@ const Create: React.FC = () => {
   const { handleSubmit, control, reset } = useForm({
     // resolver: joiResolver(loginResolver),
   });
-
+  const navigate = useNavigate();
   const { exam, isExamLoading, searchExam } = useExam();
   const { topic, isTopicLoading, searchTopic } = useTopic();
   console.log(topic);
@@ -41,6 +41,7 @@ const Create: React.FC = () => {
     if (res.status) {
       reset();
       message.success(res.message);
+      navigate(`/app/questions/i/${res?.data?.id}/edit`);
     } else {
       message.error(res.message);
     }
