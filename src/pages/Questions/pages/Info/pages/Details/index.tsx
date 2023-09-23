@@ -1,14 +1,14 @@
-import { useGetTopicsById } from "@/queries/topics";
 import Iconify from "@components/iconify";
 import { IconButton } from "@mui/material";
 import { Spin } from "antd";
 import moment from "moment";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
+import { useGetQuestionsById } from "@/queries/questions";
 
 const Details: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, isLoading } = useGetTopicsById(id);
+  const { data, isLoading } = useGetQuestionsById(id);
   return (
     <Spin spinning={isLoading}>
       <div className="mx-auto max-w-2xl">
