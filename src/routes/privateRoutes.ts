@@ -31,6 +31,10 @@ export const privateRoutes = [
     Component: lazy(() => import("@pages/Exams")),
   },
   {
+    path: PRIVATE_ROUTES.QUESTIONS,
+    Component: lazy(() => import("@pages/Questions")),
+  },
+  {
     path: PRIVATE_ROUTES.EMPLOYEES,
     Component: lazy(() => import("@pages/Employees")),
   },
