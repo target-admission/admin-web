@@ -59,9 +59,20 @@ const Column = (): GridColDef[] => {
       sortable: false,
     },
     {
-      headerName: "Subject",
+      headerName: "Question Type",
       headerAlign: "center",
-      field: "subject",
+      field: "type",
+      align: "center",
+      flex: 1,
+      width: 180,
+      minWidth: 150,
+      filterable: false,
+      sortable: false,
+    },
+    {
+      headerName: "Options",
+      headerAlign: "center",
+      field: "answers",
       align: "center",
       flex: 1,
       width: 180,
@@ -69,45 +80,48 @@ const Column = (): GridColDef[] => {
       filterable: false,
       sortable: false,
       valueFormatter(params) {
-        return params.value?.name || "-";
+        return params.value?.length || "-";
       },
     },
     {
-      headerName: "Chapter",
+      headerName: "Total Tried",
       headerAlign: "center",
-      field: "chapter",
+      field: "total_tried",
       align: "center",
       flex: 1,
       width: 180,
       minWidth: 150,
+      filterable: false,
+      sortable: false,
+    },
+    {
+      headerName: "Total Success",
+      headerAlign: "center",
+      field: "total_success",
+      align: "center",
+      flex: 1,
+      width: 180,
+      minWidth: 150,
+      filterable: false,
+      sortable: false,
+    },
+    {
+      headerName: "Linked Exams",
+      headerAlign: "center",
+      field: "linked_exams",
+      align: "center",
+      flex: 1,
+      width: 250,
+      minWidth: 220,
       filterable: false,
       sortable: false,
       valueFormatter(params) {
-        return params.value?.name || "-";
+        return (
+          params.value
+            ?.flatMap((y: any) => [y.question_bank.name, y.name].join(" "))
+            .join(", ") || "-"
+        );
       },
-    },
-    {
-      headerName: "Title",
-      headerAlign: "center",
-      field: "name",
-      align: "center",
-      flex: 1,
-      width: 180,
-      minWidth: 150,
-      filterable: false,
-      sortable: false,
-    },
-
-    {
-      headerName: "Description",
-      headerAlign: "center",
-      field: "description",
-      align: "center",
-      width: 280,
-      minWidth: 250,
-      flex: 1,
-      filterable: false,
-      sortable: false,
     },
 
     {
