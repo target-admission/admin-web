@@ -73,6 +73,20 @@ const Column = (): GridColDef[] => {
       },
     },
     {
+      headerName: "Chapter",
+      headerAlign: "center",
+      field: "chapter",
+      align: "center",
+      flex: 1,
+      width: 180,
+      minWidth: 150,
+      filterable: false,
+      sortable: false,
+      valueFormatter(params) {
+        return params.value?.name || "-";
+      },
+    },
+    {
       headerName: "Title",
       headerAlign: "center",
       field: "name",
