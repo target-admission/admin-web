@@ -4,7 +4,7 @@ import { Button } from "antd";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
-const UserColumn = (): GridColDef[] => {
+const Column = (): GridColDef[] => {
 	return [
 		{
 			headerName: "ID",
@@ -90,9 +90,9 @@ const UserColumn = (): GridColDef[] => {
 			},
 		},
 		{
-			headerName: "Created At",
+			headerName: "Deleted At",
 			headerAlign: "center",
-			field: "created_at",
+			field: "deleted_at",
 			align: "center",
 			flex: 1,
 			width: 280,
@@ -115,7 +115,7 @@ const UserColumn = (): GridColDef[] => {
 					disableFocusRipple
 					className="hover: bg-transparent"
 					icon={
-						<Link to={`/app/user/i/${params.id}`}>
+						<Link to={`/app/employees/i/${params.id}`}>
 							<Button type="dashed">View</Button>
 						</Link>
 					}
@@ -147,4 +147,4 @@ const UserColumn = (): GridColDef[] => {
 	];
 };
 
-export default UserColumn;
+export default Column;

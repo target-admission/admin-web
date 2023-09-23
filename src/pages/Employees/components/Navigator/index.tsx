@@ -109,7 +109,6 @@ const Navigator: React.FC = () => {
 					placeholder="Search..."
 					value={search}
 					onChange={(e) => {
-						console.log("triggering");
 						setSearch(e.target.value || "");
 					}}
 					prefix={
