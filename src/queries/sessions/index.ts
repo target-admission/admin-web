@@ -21,7 +21,7 @@ export const useEmployeeSessionSignOut = () => {
 	const query = useQueryClient();
 	return useMutation(employeeSessionSignOut, {
 		onSuccess: () => {
-			query.invalidateQueries(["sessions/employees"]);
+			query.invalidateQueries(["/sessions/employees"]);
 			query.invalidateQueries(["/admin/validate"]);
 		},
 	});
