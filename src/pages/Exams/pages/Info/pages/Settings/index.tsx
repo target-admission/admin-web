@@ -4,23 +4,23 @@ import { Button as AntButton, Spin, Popconfirm } from "antd";
 import { useParams } from "react-router-dom";
 import { message } from "@components/antd/message";
 import handleResponse from "@/utilities/handleResponse";
-import { useDeleteTopics, useGetTopicsById } from "@/queries/topics";
+import { useDeleteExams, useGetExamsById } from "@/queries/exams";
 
 const Security: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { data, isLoading } = useGetTopicsById(id);
+  const { data, isLoading } = useGetExamsById(id);
 
-  const { mutateAsync: Delete, isLoading: isDeleteLoading } = useDeleteTopics();
+  const { mutateAsync: Delete, isLoading: isDeleteLoading } = useDeleteExams();
 
   const onDelete = async (permanent: any = null, restore: any = null) => {
     message.open({
       type: "loading",
       content: permanent
-        ? "Deleting Topic Permanently.."
+        ? "Deleting Exam Permanently.."
         : restore
-        ? "Restoring Topic.."
-        : "Deleting Topic..",
+        ? "Restoring Exam.."
+        : "Deleting Exam..",
       duration: 0,
     });
     const res = await handleResponse(() =>
@@ -52,17 +52,17 @@ const Security: React.FC = () => {
           {data?.deleted_at ? (
             <>
               <div className="col-span-2">
-                <p className=" text-md font-semibold">Restore Topic</p>
+                <p className=" text-md font-semibold">Restore Exam</p>
                 <p className="text-xs text-text-light">
-                  Restoring a topic involves reinstating their previously
-                  deleted or suspended account, and allowing them to regain
-                  access and functionality."
+                  Restoring a exam involves reinstating their previously deleted
+                  or suspended account, and allowing them to regain access and
+                  functionality."
                 </p>
               </div>
               <div>
                 <Popconfirm
-                  title="Restore Topic?"
-                  description="Are you sure to restore the topic?"
+                  title="Restore Exam?"
+                  description="Are you sure to restore the exam?"
                   onConfirm={() => onDelete(null, true)}
                   okButtonProps={{
                     type: "primary",
@@ -89,16 +89,16 @@ const Security: React.FC = () => {
           ) : (
             <>
               <div className="col-span-2">
-                <p className=" text-md font-semibold">Delete Topic</p>
+                <p className=" text-md font-semibold">Delete Exam</p>
                 <p className="text-xs text-text-light">
-                  Deleting a topic involves temporarily removing their account
+                  Deleting a exam involves temporarily removing their account
                   and associated data.
                 </p>
               </div>
               <div>
                 <Popconfirm
-                  title="Delete Topic?"
-                  description="Are you sure to delete this topic?"
+                  title="Delete Exam?"
+                  description="Are you sure to delete this exam?"
                   onConfirm={() => onDelete()}
                   okButtonProps={{
                     type: "primary",
@@ -127,13 +127,13 @@ const Security: React.FC = () => {
           <div className="col-span-2">
             <p className=" text-md font-semibold">Permanently Delete</p>
             <p className="text-xs text-text-light">
-              Deleting a topic involves permanently removing their account and
-              associated data. You will not be able to recover this topic.
+              Deleting a exam involves permanently removing their account and
+              associated data. You will not be able to recover this exam.
             </p>
           </div>
           <div>
             <Popconfirm
-              title="Delete Topic Permanently?"
+              title="Delete Exam Permanently?"
               description="Are you sure to delete permanently?"
               onConfirm={() => onDelete(true)}
               okButtonProps={{
