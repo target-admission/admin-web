@@ -3,10 +3,11 @@ import useQueryContext from "@/hooks/useQueryContext";
 import { DataGrid } from "@mui/x-data-grid";
 import Column from "./components/Column";
 import { useNavigate } from "react-router-dom";
-import { useGetEmployees } from "@/queries/employees";
+import { useGetChapters } from "@/queries/chapters";
 
 const List: React.FC = () => {
   const navigate = useNavigate();
+
   const {
     getQueryParams,
     page,
@@ -14,8 +15,10 @@ const List: React.FC = () => {
     setPage,
     setLimit,
   } = useQueryContext();
-  const { data, isLoading } = useGetEmployees({ ...getQueryParams() });
-  console.log(data);
+  const { data, isLoading } = useGetChapters({
+    ...getQueryParams(),
+    trash: true,
+  });
 
   return (
     <div className="p-3 w-full h-full max-h-[500px]">
@@ -23,7 +26,7 @@ const List: React.FC = () => {
         columns={Column()}
         rows={data?.data || []}
         loading={isLoading}
-        rowCount={data?.total || 0}
+        rowCount={data?.data?.total || 0}
         paginationModel={{
           page,
           pageSize: limit,
@@ -34,7 +37,7 @@ const List: React.FC = () => {
         }}
         pageSizeOptions={[10, 25, 50, 100, 200]}
         paginationMode={"server"}
-        onRowDoubleClick={(row) => navigate(`/app/employees/i/${row.id}`)}
+        onRowDoubleClick={(row) => navigate(`/app/chapters/i/${row.id}`)}
         disableRowSelectionOnClick
         disableColumnFilter
       />
