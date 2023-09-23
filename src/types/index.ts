@@ -1,4 +1,4 @@
-export type IUserId = number;
+export type IUserId = string;
 export type ISessionId = number;
 
 //data grid types
