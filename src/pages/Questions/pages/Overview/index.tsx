@@ -1,10 +1,10 @@
 import React from "react";
-import useQueryContext from "@/hooks/useQueryContext";
+// import useQueryContext from "@/hooks/useQueryContext";
 import { Card, Spin, Tag } from "antd";
 
 const Overview: React.FC = () => {
-  const { search } = useQueryContext();
-  const [stats, setStats] = React.useState<any>(null);
+  //   const { _search } = useQueryContext();
+  const [stats, _setStats] = React.useState<any>(null);
   return (
     <div className="p-3">
       <Spin spinning={false}>
