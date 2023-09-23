@@ -22,7 +22,7 @@ const getQsnBankById = (id?: string) => {
 };
 
 export const useGetQsnBankById = (id?: string) => {
-  return useQuery(["/employees/:id", id], () => getQsnBankById(id), {
+  return useQuery(["/question-bank/:id", id], () => getQsnBankById(id), {
     enabled: !!id,
     select(data) {
       return data.data.data;

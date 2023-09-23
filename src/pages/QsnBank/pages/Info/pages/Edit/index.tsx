@@ -1,4 +1,3 @@
-import { useGetTopicsById, useUpdateTopicsById } from "@/queries/topics";
 import handleResponse from "@/utilities/handleResponse";
 import Label from "@components/Label";
 import { Input, Select, Spin, message } from "antd";
@@ -9,12 +8,11 @@ import { Avatar, Button } from "@mui/material";
 import previewAttachment from "@/utilities/s3Attachment";
 import { stringAvatar } from "@/utilities/stringAvatar";
 import moment from "moment";
-import useChapter from "@/hooks/useChapter";
-import Iconify from "@components/iconify";
+import { useGetQsnBankById, useUpdateQsnBankById } from "@/queries/qsnbank";
 
 const Edit: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, isLoading } = useGetTopicsById(id);
+  const { data, isLoading } = useGetQsnBankById(id);
   const {
     handleSubmit,
     control,
@@ -23,31 +21,29 @@ const Edit: React.FC = () => {
   } = useForm({
     // resolver: joiResolver(loginResolver),
   });
-  const [topicInfo, setTopicInfo] = React.useState<any>([]);
-  const { chapter, isChapterLoading, searchChapter } = useChapter();
-  const { mutateAsync: update, isLoading: isTopicUpdating } =
-    useUpdateTopicsById();
+  const [qsnBankInfo, setQsnBankInfoInfo] = React.useState<any>([]);
+  const { mutateAsync: update, isLoading: isQsnBankUpdating } =
+    useUpdateQsnBankById();
 
   React.useEffect(() => {
     if (!data) return;
-    setTopicInfo(data);
+    setQsnBankInfoInfo(data);
   }, [data]);
 
   React.useEffect(() => {
-    if (!topicInfo || isDirty) return;
+    if (!qsnBankInfo || isDirty) return;
     reset({
-      name: topicInfo?.name,
-      chapter_id: topicInfo?.chapter_id,
-      description: topicInfo?.description,
-      cover_picture: topicInfo?.cover_picture,
+      name: qsnBankInfo?.name,
+      description: qsnBankInfo?.description,
+      cover_picture: qsnBankInfo?.cover_picture,
     });
-  }, [topicInfo]);
+  }, [qsnBankInfo]);
 
   // On Submit Function
   const onSubmit = async (data: any) => {
     message.open({
       type: "loading",
-      content: "Updating Topic..",
+      content: "Updating Question Bank..",
       duration: 0,
     });
     const res = await handleResponse(() =>
@@ -96,31 +92,8 @@ const Edit: React.FC = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="max-w-xl mb-4 mx-auto flex flex-col gap-2"
         >
-          <p className="font-medium mb-2">Topic Information</p>
+          <p className="font-medium mb-2">Question Bank Information</p>
           <div className="flex flex-col gap-2 border p-3 rounded-md bg-slate-50">
-            <Label className="my-1">Chapter</Label>
-            <Controller
-              control={control}
-              name={"chapter_id"}
-              render={({
-                field: { onChange, onBlur, value },
-                fieldState: { error },
-              }) => (
-                <Select
-                  value={value}
-                  size="large"
-                  showSearch
-                  className="w-full"
-                  placeholder={"Select a Chapter..."}
-                  suffixIcon={<Iconify icon={"mingcute:search-3-line"} />}
-                  onChange={onChange}
-                  options={chapter}
-                  onSearch={searchChapter}
-                  loading={isChapterLoading}
-                  status={error ? "error" : ""}
-                />
-              )}
-            />
             <Label isRequired>Name</Label>
             <Controller
               control={control}
@@ -171,7 +144,7 @@ const Edit: React.FC = () => {
               size="large"
               type={"submit"}
               className="w-full mt-4"
-              disabled={isTopicUpdating}
+              disabled={isQsnBankUpdating}
             >
               Save Changes
             </Button>
