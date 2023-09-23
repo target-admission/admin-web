@@ -11,7 +11,6 @@ import { Link, useParams } from "react-router-dom";
 const Details: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading } = useGetEmployeesById(id);
-  console.log(data);
   return (
     <Spin spinning={isLoading}>
       <div className="mx-auto max-w-2xl">

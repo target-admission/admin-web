@@ -1,18 +1,18 @@
 import React from "react";
 // import useQueryContext from "@/hooks/useQueryContext";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetUsersById } from "@/queries/users";
 import moment from "moment";
 import { Spin } from "antd";
 import previewAttachment from "@/utilities/s3Attachment";
-import { Avatar } from "@mui/material";
+import { Avatar, IconButton } from "@mui/material";
 import { stringAvatar } from "@/utilities/stringAvatar";
+import Iconify from "@components/iconify";
 
 const Item: React.FC = () => {
   const params = useParams();
   // const { search } = useQueryContext();
   const { data, isLoading } = useGetUsersById(params.id);
-  console.log(data);
   return (
     <Spin spinning={isLoading}>
       <div className="mx-auto max-w-2xl">
@@ -25,8 +25,13 @@ const Item: React.FC = () => {
             {...stringAvatar([data?.first_name, data?.last_name].join(" "))}
           />
           <div>
-            <p className="text-2xl font-bold">
+            <p className="text-2xl font-bold flex flex-row items-center gap-2">
               {[data?.first_name, data?.last_name].join(" ")}
+              <Link to={`/app/users/i/${data?.id}/edit`}>
+                <IconButton size="small">
+                  <Iconify icon="fluent:edit-12-regular" />
+                </IconButton>
+              </Link>
             </p>
             <p className="text-text-light font-semibold">
               @{data?.username || "-"}
