@@ -27,6 +27,10 @@ export const privateRoutes = [
     Component: lazy(() => import("@pages/QsnBank")),
   },
   {
+    path: PRIVATE_ROUTES.EXAMS,
+    Component: lazy(() => import("@pages/Exams")),
+  },
+  {
     path: PRIVATE_ROUTES.EMPLOYEES,
     Component: lazy(() => import("@pages/Employees")),
   },

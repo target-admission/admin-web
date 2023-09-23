@@ -11,6 +11,7 @@ export const PRIVATE_ROUTES = {
   CHAPTERS: "chapters/*",
   TOPICS: "topics/*",
   QSNBANK: "qb/*",
+  EXAMS: "exams/*",
   EMPLOYEES: "employees/*",
   SETTINGS: "settings/*",
   NOTFOUND: "*",
