@@ -12,7 +12,6 @@ import useExam from "@/hooks/useExam";
 import Iconify from "@components/iconify";
 
 const Create: React.FC = () => {
-  // Get Subject
   const { handleSubmit, control, reset } = useForm({
     // resolver: joiResolver(loginResolver),
   });
