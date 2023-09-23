@@ -37,6 +37,11 @@ export const DrawerData = (logout?: () => void): IDrawerData[] => [
         icon: <Icon icon="icon-park-outline:file-hash" />,
         to: "/app/topics",
       },
+      {
+        name: "Question Bank",
+        icon: <Icon icon="fluent:book-question-mark-20-regular" />,
+        to: "/app/qb",
+      },
     ],
   },
 
