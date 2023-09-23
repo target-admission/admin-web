@@ -18,15 +18,13 @@ const useExam = () => {
   React.useEffect(() => {
     if (!examData) return;
     var d: IOption[] = [];
-    examData?.data?.data?.map?.(
-      (s: { id: string; first_name: string; last_name: string }) => {
-        d.push({
-          value: s.id,
-          label: `${s.first_name} ${s.last_name}`,
-          data: s,
-        });
-      }
-    );
+    examData?.data?.map?.((s: { id: string; name: string }) => {
+      d.push({
+        value: s.id,
+        label: s.name,
+        data: s,
+      });
+    });
     setExam(d);
   }, [examData]);
 
