@@ -124,18 +124,76 @@ const Security: React.FC = () => {
         </form>
         <Divider />
         <p className="py-2 text-xl">Danger Zone</p>
-        <div className="grid grid-cols-3">
-          <p className="col-span-2">Delete</p>
-          <Button
-            size="large"
-            variant="contained"
-            fullWidth
-            className="col-span-1 bg-slate-600"
-            type="submit"
-            // disabled={isSubmitting}
-          >
-            Delete
-          </Button>
+        <div className="grid grid-cols-3 border border-primary p-3 rounded-md gap-4 ">
+          <div className="col-span-2">
+            <p className=" text-md font-semibold">Suspend User</p>
+            <p className="text-xs">
+              Suspending a user involves temporarily restricting their access to
+              an online platform.
+            </p>
+          </div>
+          <div>
+            <Button
+              variant="contained"
+              className="bg-slate-600 float-right"
+              type="submit"
+              // disabled={isSubmitting}
+            >
+              Suspend
+            </Button>
+          </div>
+          <div className="col-span-2">
+            <p className=" text-md font-semibold">Delete User</p>
+            <p className="text-xs">
+              Deleting a user involves temporarily removing their account and
+              associated data.
+            </p>
+          </div>
+          <div>
+            <Button
+              variant="contained"
+              className="bg-slate-600 float-right"
+              type="submit"
+              // disabled={isSubmitting}
+            >
+              Delete
+            </Button>
+          </div>
+          <div className="col-span-2">
+            <p className=" text-md font-semibold">Delete User Permanently</p>
+            <p className="text-xs">
+              Deleting a user involves permanently removing their account and
+              associated data. You will not be able to recover this user.
+            </p>
+          </div>
+          <div>
+            <Button
+              variant="contained"
+              className="bg-slate-600 float-right"
+              type="submit"
+              // disabled={isSubmitting}
+            >
+              Delete
+            </Button>
+          </div>
+          <div className="col-span-2">
+            <p className=" text-md font-semibold">Restore User</p>
+            <p className="text-xs">
+              Restoring a user involves reinstating their previously deleted or
+              suspended account, and allowing them to regain access and
+              functionality."
+            </p>
+          </div>
+          <div>
+            <Button
+              variant="contained"
+              className="bg-slate-600 float-right"
+              type="submit"
+              // disabled={isSubmitting}
+            >
+              Restore
+            </Button>
+          </div>
         </div>
       </div>
     </>
