@@ -1,11 +1,12 @@
 import { useGetEmployeesById } from "@/queries/employees";
 import previewAttachment from "@/utilities/s3Attachment";
 import { stringAvatar } from "@/utilities/stringAvatar";
-import { Avatar } from "@mui/material";
+import Iconify from "@components/iconify";
+import { Avatar, IconButton } from "@mui/material";
 import { Spin } from "antd";
 import moment from "moment";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Details: React.FC = () => {
 	const { id } = useParams<{ id: string }>();
@@ -23,8 +24,13 @@ const Details: React.FC = () => {
 						{...stringAvatar([data?.first_name, data?.last_name].join(" "))}
 					/>
 					<div>
-						<p className="text-2xl font-bold">
-							{[data?.first_name, data?.last_name].join(" ")}
+						<p className="text-2xl font-bold flex flex-row items-center gap-2">
+							{[data?.first_name, data?.last_name].join(" ")}{" "}
+							<Link to={`/app/employees/i/${data?.id}/edit`}>
+								<IconButton size="small">
+									<Iconify icon="fluent:edit-12-regular" />
+								</IconButton>
+							</Link>
 						</p>
 						<p className="text-text-light font-semibold">
 							@{data?.username || "-"}

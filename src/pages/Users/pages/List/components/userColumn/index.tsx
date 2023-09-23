@@ -115,7 +115,7 @@ const UserColumn = (): GridColDef[] => {
 					disableFocusRipple
 					className="hover: bg-transparent"
 					icon={
-						<Link to={`/app/user/i/${params.id}`}>
+						<Link to={`/app/users/i/${params.id}`}>
 							<Button type="dashed">View</Button>
 						</Link>
 					}
@@ -123,13 +123,14 @@ const UserColumn = (): GridColDef[] => {
 				/>,
 				<GridActionsCellItem
 					icon={
-						<Iconify
-							icon={"fluent:edit-12-regular"}
-							className="text-lg"
-						/>
+						<Link to={`/app/users/i/${params.id}/edit`}>
+							<Iconify
+								icon={"fluent:edit-12-regular"}
+								className="text-lg"
+							/>
+						</Link>
 					}
 					label="Edit"
-					onClick={() => {}}
 				/>,
 				<GridActionsCellItem
 					icon={

@@ -123,13 +123,14 @@ const Column = (): GridColDef[] => {
 				/>,
 				<GridActionsCellItem
 					icon={
-						<Iconify
-							icon={"fluent:edit-12-regular"}
-							className="text-lg"
-						/>
+						<Link to={`/app/employees/i/${params.id}/edit`}>
+							<Iconify
+								icon={"fluent:edit-12-regular"}
+								className="text-lg"
+							/>
+						</Link>
 					}
 					label="Edit"
-					onClick={() => {}}
 				/>,
 				<GridActionsCellItem
 					icon={
