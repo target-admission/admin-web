@@ -1,5 +1,5 @@
-import { useDeleteTopics } from "@/queries/topics";
-import { ITopicId } from "@/types";
+import { useDeleteQuestions } from "@/queries/questions";
+import { IQuestionId } from "@/types";
 import handleResponse from "@/utilities/handleResponse";
 import { message } from "@components/antd/message";
 import Iconify from "@components/iconify";
@@ -9,20 +9,21 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 
 const Column = (): GridColDef[] => {
-  const { mutateAsync: Delete, isLoading: isDeleteLoading } = useDeleteTopics();
+  const { mutateAsync: Delete, isLoading: isDeleteLoading } =
+    useDeleteQuestions();
 
   const onDelete = async (
-    id: ITopicId,
+    id: IQuestionId,
     permanent: any = null,
     restore: any = null
   ) => {
     message.open({
       type: "loading",
       content: permanent
-        ? "Deleting Topic Permanently.."
+        ? "Deleting Question Permanently.."
         : restore
-        ? "Restoring Topic.."
-        : "Deleting Topic..",
+        ? "Restoring Question.."
+        : "Deleting Question..",
       duration: 0,
     });
     const res = await handleResponse(() =>
@@ -58,9 +59,20 @@ const Column = (): GridColDef[] => {
       sortable: false,
     },
     {
-      headerName: "Subject",
+      headerName: "Question Type",
       headerAlign: "center",
-      field: "subject",
+      field: "type",
+      align: "center",
+      flex: 1,
+      width: 180,
+      minWidth: 150,
+      filterable: false,
+      sortable: false,
+    },
+    {
+      headerName: "Options",
+      headerAlign: "center",
+      field: "answers",
       align: "center",
       flex: 1,
       width: 180,
@@ -68,13 +80,13 @@ const Column = (): GridColDef[] => {
       filterable: false,
       sortable: false,
       valueFormatter(params) {
-        return params.value?.name || "-";
+        return params.value?.length || "-";
       },
     },
     {
-      headerName: "Title",
+      headerName: "Total Tried",
       headerAlign: "center",
-      field: "name",
+      field: "total_tried",
       align: "center",
       flex: 1,
       width: 180,
@@ -82,17 +94,34 @@ const Column = (): GridColDef[] => {
       filterable: false,
       sortable: false,
     },
-
     {
-      headerName: "Description",
+      headerName: "Total Success",
       headerAlign: "center",
-      field: "description",
+      field: "total_success",
       align: "center",
-      width: 280,
-      minWidth: 250,
       flex: 1,
+      width: 180,
+      minWidth: 150,
       filterable: false,
       sortable: false,
+    },
+    {
+      headerName: "Linked Exams",
+      headerAlign: "center",
+      field: "linked_exams",
+      align: "center",
+      flex: 1,
+      width: 250,
+      minWidth: 220,
+      filterable: false,
+      sortable: false,
+      valueFormatter(params) {
+        return (
+          params.value
+            ?.flatMap((y: any) => [y.question_bank.name, y.name].join(" "))
+            .join(", ") || "-"
+        );
+      },
     },
 
     {
@@ -120,7 +149,7 @@ const Column = (): GridColDef[] => {
           disableFocusRipple
           className="hover: bg-transparent"
           icon={
-            <Link to={`/app/topics/i/${params.id}`}>
+            <Link to={`/app/questions/i/${params.id}`}>
               <Button type="dashed">View</Button>
             </Link>
           }
@@ -128,7 +157,7 @@ const Column = (): GridColDef[] => {
         />,
         <GridActionsCellItem
           icon={
-            <Link to={`/app/topics/i/${params.id}/edit`}>
+            <Link to={`/app/questions/i/${params.id}/edit`}>
               <Iconify icon={"fluent:edit-12-regular"} className="text-lg" />
             </Link>
           }
