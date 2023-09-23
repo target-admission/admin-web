@@ -34,7 +34,7 @@ const List: React.FC = () => {
         }}
         pageSizeOptions={[10, 25, 50, 100, 200]}
         paginationMode={"server"}
-        onRowDoubleClick={(row) => navigate(`/app/topics/i/${row.id}`)}
+        onRowDoubleClick={(row) => navigate(`/app/qb/i/${row.id}`)}
         disableRowSelectionOnClick
         disableColumnFilter
       />
