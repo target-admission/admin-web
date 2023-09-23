@@ -1,19 +1,14 @@
 import React from "react";
-import useQueryContext from "@/hooks/useQueryContext";
-import { useParams } from "react-router-dom";
-import { useGetUsersById } from "@/queries/users";
+import Navigator from "./Navigator";
+import ServiceRoutes from "./routes";
 
 const Item: React.FC = () => {
-  const params = useParams();
-  const { search } = useQueryContext();
-  const { data, isLoading } = useGetUsersById(params.id);
-  console.log(data);
-  return (
-    <div>
-      {search}
-      hello
-    </div>
-  );
+	return (
+		<>
+			<Navigator />
+			<ServiceRoutes />
+		</>
+	);
 };
 
 export default Item;
