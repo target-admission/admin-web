@@ -27,6 +27,11 @@ export const DrawerData = (logout?: () => void): IDrawerData[] => [
         icon: <Icon icon="la:book" />,
         to: "/app/subjects",
       },
+      {
+        name: "Chapters",
+        icon: <Icon icon="fluent:branch-20-regular" />,
+        to: "/app/chapters",
+      },
     ],
   },
 

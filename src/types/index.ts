@@ -2,6 +2,7 @@ export type IUserId = string | number | undefined;
 export type ISessionId = string | number | undefined;
 export type IEmployeeId = string | number | undefined;
 export type ISubjectId = string | number | undefined;
+export type IChapterId = string | number | undefined;
 
 //data grid types
 
