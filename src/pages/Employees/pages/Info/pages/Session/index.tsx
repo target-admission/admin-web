@@ -16,7 +16,7 @@ const Session: React.FC = () => {
     defaultParams: {},
   });
   const { data, isLoading: sessionsLoading } = useGetEmployeeSessions({
-    user: params.id,
+    employee: params.id,
     ...getQueryParams(),
     sort: "logged_in_at",
   });
@@ -77,7 +77,7 @@ const Session: React.FC = () => {
                   }}
                 />
               }
-              key={s.id}
+              key={s.id || 0}
               collapsible="header"
               // collapsible={s.status === "Open" ? "header" : "disabled"}
               className="my-2 bg-white rounded"
