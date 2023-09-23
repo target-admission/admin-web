@@ -16,6 +16,7 @@ import { ROUTES } from "@pages/Employees/routes/path";
 import DatePicker from "@components/antd/DatePicker";
 import useQueryContext from "@/hooks/useQueryContext";
 import BASE_APP_ROUTES from "@/routes/base-routes";
+import moment from "moment";
 
 const items: MenuProps["items"] = [
 	{
@@ -97,8 +98,39 @@ const Navigator: React.FC<{ hideSearch?: boolean }> = ({
 				<DatePicker.RangePicker
 					bordered={false}
 					size={"large"}
-					allowClear
+					allowClear={false}
 					allowEmpty={[false, false]}
+					className="w-fit min-w-[250px]"
+					presets={[
+						{
+							label: "Today",
+							value: [moment(), moment()],
+						},
+						{
+							label: "Yesterday",
+							value: [moment().add(-1, "days"), moment().add(-1, "days")],
+						},
+						{
+							label: "Last 7 Days",
+							value: [moment().add(-7, "days"), moment()],
+						},
+						{
+							label: "Last 30 Days",
+							value: [moment().add(-30, "days"), moment()],
+						},
+						{
+							label: "Last 6 Months",
+							value: [moment().add(-3, "months"), moment()],
+						},
+						{
+							label: "Last 1 Year",
+							value: [moment().add(-1, "year"), moment()],
+						},
+					]}
+					value={watch("range") as any}
+					onChange={(v) => {
+						setFilterField("range", v || [null, null]);
+					}}
 				/>
 			</div>
 			{hideSearch ? null : (

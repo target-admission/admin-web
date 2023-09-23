@@ -1,13 +1,19 @@
 import React from "react";
 import useQueryContext from "@/hooks/useQueryContext";
 import { Card, Spin, Tag } from "antd";
+import moment from "moment";
+import { useGetUsersStatsReport } from "@/queries/reports";
 
 const Overview: React.FC = () => {
-	const { search } = useQueryContext();
-	const [stats, setStats] = React.useState<any>(null);
+	const { watch } = useQueryContext();
+	const { data: stats, isLoading } = useGetUsersStatsReport({
+		start_date: moment(watch("range")?.[0]).startOf("day").toISOString(),
+		end_date: moment(watch("range")?.[1]).endOf("day").toISOString(),
+	});
+
 	return (
 		<div className="p-3">
-			<Spin spinning={false}>
+			<Spin spinning={isLoading}>
 				<div className="grid lg:grid-cols-4 grid-cols-2 gap-4 mb-6">
 					<Card
 						size="small"

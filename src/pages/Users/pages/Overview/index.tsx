@@ -1,13 +1,19 @@
 import React from "react";
 import useQueryContext from "@/hooks/useQueryContext";
 import { Card, Spin, Tag } from "antd";
+import { useGetUsersStatsReport } from "@/queries/reports";
+import moment from "moment";
 
 const Overview: React.FC = () => {
-	const { search } = useQueryContext();
-	const [stats, setStats] = React.useState<any>(null);
+	const { watch } = useQueryContext();
+	const { data: stats, isLoading } = useGetUsersStatsReport({
+		start_date: moment(watch("range")?.[0]).startOf("day").toISOString(),
+		end_date: moment(watch("range")?.[1]).endOf("day").toISOString(),
+	});
+
 	return (
 		<div className="p-3">
-			<Spin spinning={false}>
+			<Spin spinning={isLoading}>
 				<div className="grid lg:grid-cols-4 grid-cols-2 gap-4 mb-6">
 					<Card
 						size="small"
@@ -97,7 +103,7 @@ const Overview: React.FC = () => {
 
 						<div className="flex flex-row items-center justify-between">
 							<span className="font-bold text-xl text-text-dark">
-								{stats?.new_questions || 0}
+								{stats?.total_subscription_requests || 0}
 							</span>
 							<Tag
 								color="#fff"
@@ -118,7 +124,7 @@ const Overview: React.FC = () => {
 
 						<div className="flex flex-row items-center justify-between">
 							<span className="font-bold text-xl text-text-dark">
-								{stats?.new_topics || 0}
+								{stats?.new_reffered_users || 0}
 							</span>
 							<Tag
 								color="#fff"
@@ -139,7 +145,7 @@ const Overview: React.FC = () => {
 
 						<div className="flex flex-row items-center justify-between">
 							<span className="font-bold text-xl text-text-dark">
-								{stats?.new_exams || 0}
+								{stats?.total_active_users || 0}
 							</span>
 							<Tag
 								color="#fff"
@@ -160,7 +166,7 @@ const Overview: React.FC = () => {
 
 						<div className="flex flex-row items-center justify-between">
 							<span className="font-bold text-xl text-text-dark">
-								{stats?.skipped_exams || 0}
+								{stats?.total_suspended_accounts || 0}
 							</span>
 							<Tag
 								color="#fff"

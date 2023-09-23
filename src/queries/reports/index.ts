@@ -36,3 +36,21 @@ export const useGetDashboardStatsReport = (params: any) => {
 		}
 	);
 };
+
+const getUsersStatsReport = (params: any) => {
+	return instance.get(`/reports/users/stats`, {
+		params,
+	});
+};
+
+export const useGetUsersStatsReport = (params: any) => {
+	return useQuery(
+		["/reports/users/stats", params],
+		() => getUsersStatsReport(params),
+		{
+			select(data) {
+				return data.data;
+			},
+		}
+	);
+};
