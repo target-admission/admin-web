@@ -1,7 +1,7 @@
-import { useGetSubjectsById, useUpdateSubjectsById } from "@/queries/subjects";
+import { useGetChaptersById, useUpdateChaptersById } from "@/queries/chapters";
 import handleResponse from "@/utilities/handleResponse";
 import Label from "@components/Label";
-import { Input, Spin, message } from "antd";
+import { Input, Select, Spin, message } from "antd";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
@@ -9,10 +9,12 @@ import { Avatar, Button } from "@mui/material";
 import previewAttachment from "@/utilities/s3Attachment";
 import { stringAvatar } from "@/utilities/stringAvatar";
 import moment from "moment";
+import useSubject from "@/hooks/useSubject";
+import Iconify from "@components/iconify";
 
 const Edit: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, isLoading } = useGetSubjectsById(id);
+  const { data, isLoading } = useGetChaptersById(id);
   const {
     handleSubmit,
     control,
@@ -21,29 +23,31 @@ const Edit: React.FC = () => {
   } = useForm({
     // resolver: joiResolver(loginResolver),
   });
-  const [subjectInfo, setSubjectInfo] = React.useState<any>([]);
-  const { mutateAsync: update, isLoading: isSubjectUpdating } =
-    useUpdateSubjectsById();
+  const [chapterInfo, setChapterInfo] = React.useState<any>([]);
+  const { subject, isSubjectLoading, searchSubject } = useSubject();
+  const { mutateAsync: update, isLoading: isChapterUpdating } =
+    useUpdateChaptersById();
 
   React.useEffect(() => {
     if (!data) return;
-    setSubjectInfo(data);
+    setChapterInfo(data);
   }, [data]);
 
   React.useEffect(() => {
-    if (!subjectInfo || isDirty) return;
+    if (!chapterInfo || isDirty) return;
     reset({
-      name: subjectInfo?.name,
-      description: subjectInfo?.description,
-      cover_picture: subjectInfo?.cover_picture,
+      name: chapterInfo?.name,
+      subject_id: chapterInfo?.subject_id,
+      description: chapterInfo?.description,
+      cover_picture: chapterInfo?.cover_picture,
     });
-  }, [subjectInfo]);
+  }, [chapterInfo]);
 
   // On Submit Function
   const onSubmit = async (data: any) => {
     message.open({
       type: "loading",
-      content: "Updating Subject..",
+      content: "Updating Chapter..",
       duration: 0,
     });
     const res = await handleResponse(() =>
@@ -92,8 +96,31 @@ const Edit: React.FC = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="max-w-xl mb-4 mx-auto flex flex-col gap-2"
         >
-          <p className="font-medium mb-2">Subject Information</p>
+          <p className="font-medium mb-2">Chapter Information</p>
           <div className="flex flex-col gap-2 border p-3 rounded-md bg-slate-50">
+            <Label className="my-1">Subject</Label>
+            <Controller
+              control={control}
+              name={"subject_id"}
+              render={({
+                field: { onChange, onBlur, value },
+                fieldState: { error },
+              }) => (
+                <Select
+                  value={value}
+                  size="large"
+                  showSearch
+                  className="w-full"
+                  placeholder={"Select a Subject..."}
+                  suffixIcon={<Iconify icon={"mingcute:search-3-line"} />}
+                  onChange={onChange}
+                  options={subject}
+                  onSearch={searchSubject}
+                  loading={isSubjectLoading}
+                  status={error ? "error" : ""}
+                />
+              )}
+            />
             <Label isRequired>Name</Label>
             <Controller
               control={control}
@@ -144,7 +171,7 @@ const Edit: React.FC = () => {
               size="large"
               type={"submit"}
               className="w-full mt-4"
-              disabled={isSubjectUpdating}
+              disabled={isChapterUpdating}
             >
               Save Changes
             </Button>
