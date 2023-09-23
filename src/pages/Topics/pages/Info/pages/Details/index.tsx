@@ -1,4 +1,4 @@
-import { useGetChaptersById } from "@/queries/chapters";
+import { useGetTopicsById } from "@/queries/topics";
 import Iconify from "@components/iconify";
 import { IconButton } from "@mui/material";
 import { Spin } from "antd";
@@ -8,7 +8,7 @@ import { Link, useParams } from "react-router-dom";
 
 const Details: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, isLoading } = useGetChaptersById(id);
+  const { data, isLoading } = useGetTopicsById(id);
   return (
     <Spin spinning={isLoading}>
       <div className="mx-auto max-w-2xl">
@@ -23,7 +23,7 @@ const Details: React.FC = () => {
           <div>
             <p className="text-2xl font-bold flex flex-row items-center gap-2">
               {data?.name}
-              <Link to={`/app/chapters/i/${data?.id}/edit`}>
+              <Link to={`/app/topics/i/${data?.id}/edit`}>
                 <IconButton size="small">
                   <Iconify icon="fluent:edit-12-regular" />
                 </IconButton>
@@ -43,7 +43,7 @@ const Details: React.FC = () => {
         </div>
 
         <div className="content-center gap-2 py-3">
-          <p className="font-medium mb-2 px-1">Chapter Information</p>
+          <p className="font-medium mb-2 px-1">Topic Information</p>
           <div className="grid grid-cols-3 border justify-items-start gap-1 border-slate-200 p-5 break-all rounded-lg">
             <p className="text-text-light font-semibold">Name</p>
             <p className="col-span-2">: {data?.name}</p>
@@ -53,8 +53,8 @@ const Details: React.FC = () => {
             </p>
             <p className="text-text-light font-semibold">Subject</p>
             <p className="col-span-2">: {data?.subject?.name || "-"}</p>
-            <p className="text-text-light font-semibold">Total Topics</p>
-            <p className="col-span-2">: {data?.total_topics}</p>
+            <p className="text-text-light font-semibold">Chapter</p>
+            <p className="col-span-2">: {data?.chapter?.name || "-"}</p>
           </div>
         </div>
       </div>
