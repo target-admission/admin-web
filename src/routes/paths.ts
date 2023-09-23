@@ -9,6 +9,7 @@ export const PRIVATE_ROUTES = {
   USERS: "users/*",
   SUBJECTS: "subjects/*",
   CHAPTERS: "chapters/*",
+  TOPICS: "topics/*",
   EMPLOYEES: "employees/*",
   SETTINGS: "settings/*",
   NOTFOUND: "*",

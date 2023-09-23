@@ -32,6 +32,11 @@ export const DrawerData = (logout?: () => void): IDrawerData[] => [
         icon: <Icon icon="fluent:branch-20-regular" />,
         to: "/app/chapters",
       },
+      {
+        name: "Topics",
+        icon: <Icon icon="icon-park-outline:file-hash" />,
+        to: "/app/topics",
+      },
     ],
   },
 
