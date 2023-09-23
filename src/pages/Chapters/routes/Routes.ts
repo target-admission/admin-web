@@ -6,6 +6,7 @@ const Routes = [
 		path: ROUTES.OVERVIEW,
 		Component: lazy(() => import("../pages/Overview")),
 		navigator: true,
+		only_calender: true,
 	},
 	{
 		path: ROUTES.LIST,
