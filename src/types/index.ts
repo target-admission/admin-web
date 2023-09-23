@@ -5,9 +5,9 @@ export type ISessionId = number;
 
 import {
   GridCallbackDetails,
-  GridColumns,
+  GridColDef,
   GridFeatureMode,
-  GridSelectionModel,
+  GridRowSelectionModel,
 } from "@mui/x-data-grid";
 
 export type GridNativeColTypes =
@@ -21,7 +21,7 @@ export type GridNativeColTypes =
 export type GridAlignment = "left" | "right" | "center";
 
 export type IDataTable = {
-  columns: GridColumns<any>;
+  columns: GridColDef[];
   rows: any;
   isLoading?: boolean;
   getRowId?: any;
@@ -34,9 +34,9 @@ export type IDataTable = {
   onPageSizeChange?: (newLimit: number) => void;
   checkboxSelection?: boolean;
   onSelectionModelChange?: (
-    rowSelectionModel: GridSelectionModel,
+    rowSelectionModel: GridRowSelectionModel,
     details: GridCallbackDetails<any>
   ) => void;
-  selectionModel?: GridSelectionModel;
+  selectionModel?: GridRowSelectionModel;
   keepNonExistentRowsSelected?: boolean;
 };
