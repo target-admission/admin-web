@@ -1,6 +1,7 @@
 export const ROUTES = {
-	DETAILS: "",
-	SESSION: "sessions",
-	SETTINGS: "settings",
-	NOTFOUND: "*",
+  DETAILS: "",
+  SESSION: "sessions",
+  EDIT: "edit",
+  SETTINGS: "settings",
+  NOTFOUND: "*",
 };

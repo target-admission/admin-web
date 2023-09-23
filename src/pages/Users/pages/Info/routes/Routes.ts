@@ -11,6 +11,10 @@ const Routes = [
     Component: lazy(() => import("../pages/Session")),
   },
   {
+    path: ROUTES.EDIT,
+    Component: lazy(() => import("../pages/Edit")),
+  },
+  {
     path: ROUTES.SETTINGS,
     Component: lazy(() => import("../pages/Settings")),
   },
