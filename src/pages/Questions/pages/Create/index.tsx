@@ -72,7 +72,7 @@ const Create: React.FC = () => {
           <Label isRequired>Question</Label>
           <Controller
             control={control}
-            name={"name"}
+            name={"question"}
             rules={{ required: true }}
             render={({
               field: { onChange, onBlur, value },
