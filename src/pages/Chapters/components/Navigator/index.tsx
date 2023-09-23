@@ -61,7 +61,7 @@ const Navigator: React.FC = () => {
           <Icon icon="fluent:branch-20-regular" />
           Chapters
         </h1>
-        <Link to={"/app/subjects/create"}>
+        <Link to={"/app/chapters/create"}>
           <Button
             type="dashed"
             className="flex flex-row items-center"

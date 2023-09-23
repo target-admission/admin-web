@@ -1,26 +1,29 @@
 import React from "react";
-import { useCreateSubject } from "@/queries/subjects";
+import { useCreateChapters } from "@/queries/chapters";
 import { useForm, Controller } from "react-hook-form";
 import { message } from "@components/antd/message";
 import handleResponse from "@/utilities/handleResponse";
 import Label from "@components/Label";
-import { Divider, Input } from "antd";
+import { Divider, Input, Select } from "antd";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import Iconify from "@components/iconify";
+import useSubject from "@/hooks/useSubject";
 
 const Create: React.FC = () => {
-  // Get Roles
+  // Get Subject
+  const { subject, isSubjectLoading, searchSubject } = useSubject();
   const { handleSubmit, control, reset } = useForm({
     // resolver: joiResolver(loginResolver),
   });
-  const { mutateAsync: create, isLoading: subjectCreating } =
-    useCreateSubject();
+  const { mutateAsync: create, isLoading: chapterCreating } =
+    useCreateChapters();
 
   // On Submit Function
   const onSubmit = async (data: any) => {
     message.open({
       type: "loading",
-      content: "Creating Subject..",
+      content: "Creating Chapter..",
       duration: 0,
     });
     const res = await handleResponse(
@@ -42,17 +45,17 @@ const Create: React.FC = () => {
   return (
     <div>
       <div className="max-w-md mt-6 mx-auto text-center">
-        <p className="text-lg font-medium mb-2">Create New Subject</p>
+        <p className="text-lg font-medium mb-2">Create New Chapter</p>
         <p className="text-sm text-text-light">
-          Create a new subject with this intuitive page. Input subject name,
-          details, and tags to begin organizing and managing your content
-          effortlessly.
+          Initiate a new chapter creation process. Input chapter title, content,
+          and preferences efficiently, empowering you to curate and organize
+          your content effectively on this page.
         </p>
         <Link
-          to={"/app/subjects/list"}
+          to={"/app/chapters/list"}
           className="text-sm font-medium text-text underline"
         >
-          <p className="mt-3">View All Subjects</p>
+          <p className="mt-3">View All Chapters</p>
         </Link>
         <Divider />
       </div>
@@ -61,7 +64,32 @@ const Create: React.FC = () => {
         className="max-w-xl mb-4 mx-auto flex flex-col gap-2"
       >
         <div className="flex flex-col gap-2 border p-3 rounded-md bg-slate-50">
-          <Label isRequired> Name</Label>
+          <div>
+            <Label className="my-1">Subject</Label>
+            <Controller
+              control={control}
+              name={"subject_id"}
+              render={({
+                field: { onChange, onBlur, value },
+                fieldState: { error },
+              }) => (
+                <Select
+                  value={value}
+                  size="large"
+                  showSearch
+                  className="w-full"
+                  placeholder={"Select a Subject..."}
+                  suffixIcon={<Iconify icon={"mingcute:search-3-line"} />}
+                  onChange={onChange}
+                  options={subject}
+                  onSearch={searchSubject}
+                  loading={isSubjectLoading}
+                  status={error ? "error" : ""}
+                />
+              )}
+            />
+          </div>
+          <Label isRequired>Name</Label>
           <Controller
             control={control}
             name={"name"}
@@ -111,7 +139,7 @@ const Create: React.FC = () => {
           size="large"
           type={"submit"}
           className="w-full mt-4"
-          disabled={subjectCreating}
+          disabled={chapterCreating}
         >
           Submit
         </Button>
