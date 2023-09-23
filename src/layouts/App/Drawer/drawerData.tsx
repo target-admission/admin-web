@@ -38,9 +38,14 @@ export const DrawerData = (logout?: () => void): IDrawerData[] => [
         to: "/app/topics",
       },
       {
-        name: "Question Bank",
+        name: "Question Banks",
         icon: <Icon icon="fluent:book-question-mark-20-regular" />,
         to: "/app/qb",
+      },
+      {
+        name: "Exams",
+        icon: <Icon icon="healthicons:i-exam-multiple-choice-outline" />,
+        to: "/app/exams",
       },
     ],
   },
