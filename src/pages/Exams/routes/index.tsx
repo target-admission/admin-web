@@ -8,13 +8,13 @@ const ServiceRoutes: React.FC = () => {
 	return (
 		<>
 			<Routes>
-				{NestedRoutes?.map?.(({ path, navigator }) => (
+				{NestedRoutes?.map?.(({ path, navigator, only_calender }) => (
 					<Route
 						key={path}
 						path={path}
 						element={
 							<Suspense fallback={<NProgressSuspense />}>
-								{navigator ? <Navigator /> : <></>}
+								{navigator ? <Navigator hideSearch={only_calender} /> : <></>}
 							</Suspense>
 						}
 					/>
