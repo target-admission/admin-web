@@ -4,24 +4,23 @@ import { Button as AntButton, Spin, Popconfirm } from "antd";
 import { useParams } from "react-router-dom";
 import { message } from "@components/antd/message";
 import handleResponse from "@/utilities/handleResponse";
-import { useDeleteChapters, useGetChaptersById } from "@/queries/chapters";
+import { useDeleteTopics, useGetTopicsById } from "@/queries/topics";
 
 const Security: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { data, isLoading } = useGetChaptersById(id);
+  const { data, isLoading } = useGetTopicsById(id);
 
-  const { mutateAsync: Delete, isLoading: isDeleteLoading } =
-    useDeleteChapters();
+  const { mutateAsync: Delete, isLoading: isDeleteLoading } = useDeleteTopics();
 
   const onDelete = async (permanent: any = null, restore: any = null) => {
     message.open({
       type: "loading",
       content: permanent
-        ? "Deleting Chapter Permanently.."
+        ? "Deleting Topic Permanently.."
         : restore
-        ? "Restoring Chapter.."
-        : "Deleting Chapter..",
+        ? "Restoring Topic.."
+        : "Deleting Topic..",
       duration: 0,
     });
     const res = await handleResponse(() =>
@@ -53,17 +52,17 @@ const Security: React.FC = () => {
           {data?.deleted_at ? (
             <>
               <div className="col-span-2">
-                <p className=" text-md font-semibold">Restore Chapter</p>
+                <p className=" text-md font-semibold">Restore Topic</p>
                 <p className="text-xs text-text-light">
-                  Restoring a chapter involves reinstating their previously
+                  Restoring a topic involves reinstating their previously
                   deleted or suspended account, and allowing them to regain
                   access and functionality."
                 </p>
               </div>
               <div>
                 <Popconfirm
-                  title="Restore Chapter?"
-                  description="Are you sure to restore the chapter?"
+                  title="Restore Topic?"
+                  description="Are you sure to restore the topic?"
                   onConfirm={() => onDelete(null, true)}
                   okButtonProps={{
                     type: "primary",
@@ -90,16 +89,16 @@ const Security: React.FC = () => {
           ) : (
             <>
               <div className="col-span-2">
-                <p className=" text-md font-semibold">Delete Chapter</p>
+                <p className=" text-md font-semibold">Delete Topic</p>
                 <p className="text-xs text-text-light">
-                  Deleting a chapter involves temporarily removing their account
+                  Deleting a topic involves temporarily removing their account
                   and associated data.
                 </p>
               </div>
               <div>
                 <Popconfirm
-                  title="Delete Chapter?"
-                  description="Are you sure to delete this chapter?"
+                  title="Delete Topic?"
+                  description="Are you sure to delete this topic?"
                   onConfirm={() => onDelete()}
                   okButtonProps={{
                     type: "primary",
@@ -128,13 +127,13 @@ const Security: React.FC = () => {
           <div className="col-span-2">
             <p className=" text-md font-semibold">Permanently Delete</p>
             <p className="text-xs text-text-light">
-              Deleting a chapter involves permanently removing their account and
-              associated data. You will not be able to recover this chapter.
+              Deleting a topic involves permanently removing their account and
+              associated data. You will not be able to recover this topic.
             </p>
           </div>
           <div>
             <Popconfirm
-              title="Delete Chapter Permanently?"
+              title="Delete Topic Permanently?"
               description="Are you sure to delete permanently?"
               onConfirm={() => onDelete(true)}
               okButtonProps={{
