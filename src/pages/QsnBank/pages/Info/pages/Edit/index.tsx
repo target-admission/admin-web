@@ -1,6 +1,6 @@
 import handleResponse from "@/utilities/handleResponse";
 import Label from "@components/Label";
-import { Input, Select, Spin, message } from "antd";
+import { Input, Spin, message } from "antd";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";

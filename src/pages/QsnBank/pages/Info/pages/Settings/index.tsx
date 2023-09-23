@@ -4,23 +4,24 @@ import { Button as AntButton, Spin, Popconfirm } from "antd";
 import { useParams } from "react-router-dom";
 import { message } from "@components/antd/message";
 import handleResponse from "@/utilities/handleResponse";
-import { useDeleteTopics, useGetTopicsById } from "@/queries/topics";
+import { useDeleteQsnBank, useGetQsnBankById } from "@/queries/qsnbank";
 
 const Security: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { data, isLoading } = useGetTopicsById(id);
+  const { data, isLoading } = useGetQsnBankById(id);
 
-  const { mutateAsync: Delete, isLoading: isDeleteLoading } = useDeleteTopics();
+  const { mutateAsync: Delete, isLoading: isDeleteLoading } =
+    useDeleteQsnBank();
 
   const onDelete = async (permanent: any = null, restore: any = null) => {
     message.open({
       type: "loading",
       content: permanent
-        ? "Deleting Topic Permanently.."
+        ? "Deleting Question Bank Permanently.."
         : restore
-        ? "Restoring Topic.."
-        : "Deleting Topic..",
+        ? "Restoring Question Bank.."
+        : "Deleting Question Bank..",
       duration: 0,
     });
     const res = await handleResponse(() =>
@@ -52,17 +53,17 @@ const Security: React.FC = () => {
           {data?.deleted_at ? (
             <>
               <div className="col-span-2">
-                <p className=" text-md font-semibold">Restore Topic</p>
+                <p className=" text-md font-semibold">Restore Question Bank</p>
                 <p className="text-xs text-text-light">
-                  Restoring a topic involves reinstating their previously
-                  deleted or suspended account, and allowing them to regain
-                  access and functionality."
+                  Restoring a Question Bank involves reinstating their
+                  previously deleted data, and allowing them to regain access
+                  and functionality."
                 </p>
               </div>
               <div>
                 <Popconfirm
-                  title="Restore Topic?"
-                  description="Are you sure to restore the topic?"
+                  title="Restore Question Bank?"
+                  description="Are you sure to restore the Question Bank?"
                   onConfirm={() => onDelete(null, true)}
                   okButtonProps={{
                     type: "primary",
@@ -89,16 +90,16 @@ const Security: React.FC = () => {
           ) : (
             <>
               <div className="col-span-2">
-                <p className=" text-md font-semibold">Delete Topic</p>
+                <p className=" text-md font-semibold">Delete Question Bank</p>
                 <p className="text-xs text-text-light">
-                  Deleting a topic involves temporarily removing their account
-                  and associated data.
+                  Deleting a question bank involves temporarily removing their
+                  associated data from the list.
                 </p>
               </div>
               <div>
                 <Popconfirm
-                  title="Delete Topic?"
-                  description="Are you sure to delete this topic?"
+                  title="Delete Question Bank?"
+                  description="Are you sure to delete this Question Bank?"
                   onConfirm={() => onDelete()}
                   okButtonProps={{
                     type: "primary",
@@ -127,8 +128,9 @@ const Security: React.FC = () => {
           <div className="col-span-2">
             <p className=" text-md font-semibold">Permanently Delete</p>
             <p className="text-xs text-text-light">
-              Deleting a topic involves permanently removing their account and
-              associated data. You will not be able to recover this topic.
+              Deleting a question bank involves permanently removing their
+              associated data. You will not be able to recover this question
+              bank.
             </p>
           </div>
           <div>
