@@ -173,7 +173,7 @@ const Create: React.FC = () => {
                 allowClear
                 showSearch
                 className="w-full"
-                placeholder={"Select a Subject..."}
+                placeholder={"Select a Exam..."}
                 suffixIcon={<Iconify icon={"mingcute:search-3-line"} />}
                 onChange={onChange}
                 options={exam}
