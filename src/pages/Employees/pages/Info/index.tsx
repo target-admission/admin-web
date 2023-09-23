@@ -1,9 +1,14 @@
 import React from "react";
-import useQueryContext from "@/hooks/useQueryContext";
+import Navigator from "./Navigator";
+import ServiceRoutes from "./routes";
 
 const Item: React.FC = () => {
-	const { search } = useQueryContext();
-	return <div>{search}</div>;
+	return (
+		<>
+			<Navigator />
+			<ServiceRoutes />
+		</>
+	);
 };
 
 export default Item;
