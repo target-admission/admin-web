@@ -1,5 +1,5 @@
-import { useDeleteChapters } from "@/queries/chapters";
-import { IChapterId } from "@/types";
+import { useDeleteTopics } from "@/queries/topics";
+import { ITopicId } from "@/types";
 import handleResponse from "@/utilities/handleResponse";
 import { message } from "@components/antd/message";
 import Iconify from "@components/iconify";
@@ -9,21 +9,20 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 
 const Column = (): GridColDef[] => {
-  const { mutateAsync: Delete, isLoading: isDeleteLoading } =
-    useDeleteChapters();
+  const { mutateAsync: Delete, isLoading: isDeleteLoading } = useDeleteTopics();
 
   const onDelete = async (
-    id: IChapterId,
+    id: ITopicId,
     permanent: any = null,
     restore: any = null
   ) => {
     message.open({
       type: "loading",
       content: permanent
-        ? "Deleting Chapter Permanently.."
+        ? "Deleting Topic Permanently.."
         : restore
-        ? "Restoring Chapter.."
-        : "Deleting Chapter..",
+        ? "Restoring Topic.."
+        : "Deleting Topic..",
       duration: 0,
     });
     const res = await handleResponse(() =>
@@ -121,7 +120,7 @@ const Column = (): GridColDef[] => {
           disableFocusRipple
           className="hover: bg-transparent"
           icon={
-            <Link to={`/app/chapters/i/${params.id}`}>
+            <Link to={`/app/topics/i/${params.id}`}>
               <Button type="dashed">View</Button>
             </Link>
           }
@@ -129,7 +128,7 @@ const Column = (): GridColDef[] => {
         />,
         <GridActionsCellItem
           icon={
-            <Link to={`/app/chapters/i/${params.id}/edit`}>
+            <Link to={`/app/topics/i/${params.id}/edit`}>
               <Iconify icon={"fluent:edit-12-regular"} className="text-lg" />
             </Link>
           }

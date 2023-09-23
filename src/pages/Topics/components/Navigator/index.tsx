@@ -61,7 +61,7 @@ const Navigator: React.FC = () => {
           <Icon icon="icon-park-outline:file-hash" />
           Topics
         </h1>
-        <Link to={"/app/chapters/create"}>
+        <Link to={"/app/topics/create"}>
           <Button
             type="dashed"
             className="flex flex-row items-center"

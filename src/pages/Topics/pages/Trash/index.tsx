@@ -3,7 +3,7 @@ import useQueryContext from "@/hooks/useQueryContext";
 import { DataGrid } from "@mui/x-data-grid";
 import Column from "./components/Column";
 import { useNavigate } from "react-router-dom";
-import { useGetChapters } from "@/queries/chapters";
+import { useGetTopics } from "@/queries/topics";
 
 const List: React.FC = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const List: React.FC = () => {
     setPage,
     setLimit,
   } = useQueryContext();
-  const { data, isLoading } = useGetChapters({
+  const { data, isLoading } = useGetTopics({
     ...getQueryParams(),
     trash: true,
   });
@@ -26,7 +26,7 @@ const List: React.FC = () => {
         columns={Column()}
         rows={data?.data || []}
         loading={isLoading}
-        rowCount={data?.data?.total || 0}
+        rowCount={data?.total || 0}
         paginationModel={{
           page,
           pageSize: limit,
@@ -37,7 +37,7 @@ const List: React.FC = () => {
         }}
         pageSizeOptions={[10, 25, 50, 100, 200]}
         paginationMode={"server"}
-        onRowDoubleClick={(row) => navigate(`/app/chapters/i/${row.id}`)}
+        onRowDoubleClick={(row) => navigate(`/app/topics/i/${row.id}`)}
         disableRowSelectionOnClick
         disableColumnFilter
       />

@@ -1,5 +1,5 @@
 import React from "react";
-import { useCreateChapters } from "@/queries/chapters";
+import { useCreateTopics } from "@/queries/topics";
 import { useForm, Controller } from "react-hook-form";
 import { message } from "@components/antd/message";
 import handleResponse from "@/utilities/handleResponse";
@@ -8,22 +8,21 @@ import { Divider, Input, Select } from "antd";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import Iconify from "@components/iconify";
-import useSubject from "@/hooks/useSubject";
+import useChapter from "@/hooks/useChapter";
 
 const Create: React.FC = () => {
   // Get Subject
-  const { subject, isSubjectLoading, searchSubject } = useSubject();
+  const { chapter, isChapterLoading, searchChapter } = useChapter();
   const { handleSubmit, control, reset } = useForm({
     // resolver: joiResolver(loginResolver),
   });
-  const { mutateAsync: create, isLoading: chapterCreating } =
-    useCreateChapters();
+  const { mutateAsync: create, isLoading: topicCreating } = useCreateTopics();
 
   // On Submit Function
   const onSubmit = async (data: any) => {
     message.open({
       type: "loading",
-      content: "Creating Chapter..",
+      content: "Creating Topic..",
       duration: 0,
     });
     const res = await handleResponse(
@@ -45,17 +44,17 @@ const Create: React.FC = () => {
   return (
     <div>
       <div className="max-w-md mt-6 mx-auto text-center">
-        <p className="text-lg font-medium mb-2">Create New Chapter</p>
+        <p className="text-lg font-medium mb-2">Create New Topic</p>
         <p className="text-sm text-text-light">
-          Initiate a new chapter creation process. Input chapter title, content,
-          and preferences efficiently, empowering you to curate and organize
-          your content effectively on this page.
+          Initiate a new topic creation process. Input topic title, content, and
+          preferences efficiently, empowering you to curate and organize your
+          content effectively on this page.
         </p>
         <Link
-          to={"/app/chapters/list"}
+          to={"/app/topics/list"}
           className="text-sm font-medium text-text underline"
         >
-          <p className="mt-3">View All Chapters</p>
+          <p className="mt-3">View All Topics</p>
         </Link>
         <Divider />
       </div>
@@ -65,10 +64,10 @@ const Create: React.FC = () => {
       >
         <div className="flex flex-col gap-2 border p-3 rounded-md bg-slate-50">
           <div>
-            <Label className="my-1">Subject</Label>
+            <Label className="my-1">Chapter</Label>
             <Controller
               control={control}
-              name={"subject_id"}
+              name={"chapter_id"}
               render={({
                 field: { onChange, onBlur, value },
                 fieldState: { error },
@@ -78,12 +77,12 @@ const Create: React.FC = () => {
                   size="large"
                   showSearch
                   className="w-full"
-                  placeholder={"Select a Subject..."}
+                  placeholder={"Select a Chapter..."}
                   suffixIcon={<Iconify icon={"mingcute:search-3-line"} />}
                   onChange={onChange}
-                  options={subject}
-                  onSearch={searchSubject}
-                  loading={isSubjectLoading}
+                  options={chapter}
+                  onSearch={searchChapter}
+                  loading={isChapterLoading}
                   status={error ? "error" : ""}
                 />
               )}
@@ -100,7 +99,7 @@ const Create: React.FC = () => {
             }) => (
               <Input
                 className="relative w-full"
-                placeholder={"Enter Subject Name"}
+                placeholder={"Enter Topic Name"}
                 size={"large"}
                 onChange={onChange}
                 onBlur={onBlur}
@@ -139,7 +138,7 @@ const Create: React.FC = () => {
           size="large"
           type={"submit"}
           className="w-full mt-4"
-          disabled={chapterCreating}
+          disabled={topicCreating}
         >
           Submit
         </Button>
