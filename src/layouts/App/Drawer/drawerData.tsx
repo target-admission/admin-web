@@ -47,42 +47,47 @@ export const DrawerData = (logout?: () => void): IDrawerData[] => [
         icon: <Icon icon="healthicons:i-exam-multiple-choice-outline" />,
         to: "/app/exams",
       },
+      {
+        name: "Questions",
+        icon: <Icon icon="icon-park-outline:file-question" />,
+        to: "/app/questions",
+      },
     ],
   },
-	{
-		title: "Additional",
-		sublist: [
-			{
-				name: "Roles",
-				icon: <Icon icon="fluent:phone-key-20-regular" />,
-				to: "/app/roles",
-				disabled: true,
-			},
-			{
-				name: "Employees",
-				icon: <Icon icon="clarity:employee-group-line" />,
-				to: "/app/employees",
-			},
-		],
-	},
-	{
-		title: "Personal",
-		sublist: [
-			{
-				name: "Settings",
-				icon: <MdOutlineSettings />,
-				to: "/app/settings",
-			},
-			// {
-			// 	name: "Help",
-			// 	icon: <Icon icon="material-symbols:live-help-outline-rounded" />,
-			// 	to: "/app/help",
-			// },
-			{
-				name: "Logout",
-				icon: <VscSignOut />,
-				function: logout,
-			},
-		],
-	},
+  {
+    title: "Additional",
+    sublist: [
+      {
+        name: "Roles",
+        icon: <Icon icon="fluent:phone-key-20-regular" />,
+        to: "/app/roles",
+        disabled: true,
+      },
+      {
+        name: "Employees",
+        icon: <Icon icon="clarity:employee-group-line" />,
+        to: "/app/employees",
+      },
+    ],
+  },
+  {
+    title: "Personal",
+    sublist: [
+      {
+        name: "Settings",
+        icon: <MdOutlineSettings />,
+        to: "/app/settings",
+      },
+      // {
+      // 	name: "Help",
+      // 	icon: <Icon icon="material-symbols:live-help-outline-rounded" />,
+      // 	to: "/app/help",
+      // },
+      {
+        name: "Logout",
+        icon: <VscSignOut />,
+        function: logout,
+      },
+    ],
+  },
 ];

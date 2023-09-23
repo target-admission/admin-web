@@ -1,29 +1,29 @@
+import { useDeleteQuestions } from "@/queries/questions";
+import { IQuestionId } from "@/types";
+import handleResponse from "@/utilities/handleResponse";
+import { message } from "@components/antd/message";
 import Iconify from "@components/iconify";
 import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
 import { Button } from "antd";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
-import { useDeleteUser, useSuspendUser } from "@/queries/users";
-import { IUserId } from "@/types";
-import handleResponse from "@/utilities/handleResponse";
-import { message } from "@components/antd/message";
-
-const UserColumn = (): GridColDef[] => {
-  const { mutateAsync: Delete, isLoading: isDeleteLoading } = useDeleteUser();
+const Column = (): GridColDef[] => {
+  const { mutateAsync: Delete, isLoading: isDeleteLoading } =
+    useDeleteQuestions();
 
   const onDelete = async (
-    id: IUserId,
+    id: IQuestionId,
     permanent: any = null,
     restore: any = null
   ) => {
     message.open({
       type: "loading",
       content: permanent
-        ? "Deleting User Permanently.."
+        ? "Deleting Question Permanently.."
         : restore
-        ? "Restoring User.."
-        : "Deleting User..",
+        ? "Restoring Question.."
+        : "Deleting Question..",
       duration: 0,
     });
     const res = await handleResponse(() =>
@@ -47,124 +47,90 @@ const UserColumn = (): GridColDef[] => {
     }
   };
 
-  const { mutateAsync: Suspend, isLoading: isSuspendLoading } =
-    useSuspendUser();
-
-  const onSuspend = async (id: IUserId) => {
-    message.open({
-      type: "loading",
-      content: "Suspending User..",
-      duration: 0,
-    });
-    const res = await handleResponse(() =>
-      Suspend({
-        id,
-      })
-    );
-
-    message.destroy();
-
-    if (res.status) {
-      message.success(res.message);
-      return true;
-    } else {
-      message.error(res.message);
-      return false;
-    }
-  };
-
   return [
     {
       headerName: "ID",
       headerAlign: "center",
       field: "id",
       align: "center",
-      flex: 1,
+      width: 60,
+      minWidth: 50,
       filterable: false,
       sortable: false,
     },
     {
-      headerName: "Title",
+      headerName: "Question Type",
       headerAlign: "center",
-      field: "first_name",
+      field: "type",
       align: "center",
-      minWidth: 250,
       flex: 1,
+      width: 180,
+      minWidth: 150,
       filterable: false,
       sortable: false,
-      valueGetter(params) {
+    },
+    {
+      headerName: "Options",
+      headerAlign: "center",
+      field: "answers",
+      align: "center",
+      flex: 1,
+      width: 180,
+      minWidth: 150,
+      filterable: false,
+      sortable: false,
+      valueFormatter(params) {
+        return params.value?.length || "-";
+      },
+    },
+    {
+      headerName: "Total Tried",
+      headerAlign: "center",
+      field: "total_tried",
+      align: "center",
+      flex: 1,
+      width: 180,
+      minWidth: 150,
+      filterable: false,
+      sortable: false,
+    },
+    {
+      headerName: "Total Success",
+      headerAlign: "center",
+      field: "total_success",
+      align: "center",
+      flex: 1,
+      width: 180,
+      minWidth: 150,
+      filterable: false,
+      sortable: false,
+    },
+    {
+      headerName: "Linked Exams",
+      headerAlign: "center",
+      field: "linked_exams",
+      align: "center",
+      flex: 1,
+      width: 250,
+      minWidth: 220,
+      filterable: false,
+      sortable: false,
+      valueFormatter(params) {
         return (
-          [params?.row?.first_name, params?.row?.last_name].join(" ") || "-"
+          params.value
+            ?.flatMap((y: any) => [y.question_bank.name, y.name].join(" "))
+            .join(", ") || "-"
         );
       },
     },
-    {
-      headerName: "Username",
-      headerAlign: "center",
-      field: "username",
-      align: "center",
-      flex: 1,
-      minWidth: 200,
-      filterable: false,
-      sortable: false,
-      valueFormatter(params) {
-        return `@${params.value}`;
-      },
-    },
-    {
-      headerName: "Gender",
-      headerAlign: "center",
-      field: "gender",
-      align: "center",
-      width: 120,
-      minWidth: 120,
-      flex: 1,
-      sortable: false,
-    },
-    {
-      headerName: "Phone",
-      headerAlign: "center",
-      field: "phone",
-      align: "center",
-      width: 100,
-      minWidth: 80,
-      flex: 1,
-      filterable: false,
-      sortable: false,
-    },
-    {
-      headerName: "Email",
-      headerAlign: "center",
-      field: "email",
-      align: "center",
-      width: 250,
-      minWidth: 200,
-      //   flex: 1,
-      filterable: false,
-      sortable: false,
-    },
-    {
-      headerName: "Verified At",
-      headerAlign: "center",
-      field: "verified_at",
-      align: "center",
-      flex: 1,
-      width: 280,
-      minWidth: 250,
-      filterable: false,
-      sortable: false,
-      valueFormatter(params) {
-        return params.value ? moment(params.value).format("lll") : "-";
-      },
-    },
+
     {
       headerName: "Created At",
       headerAlign: "center",
       field: "created_at",
       align: "center",
-      flex: 1,
-      width: 280,
-      minWidth: 250,
+      width: 220,
+      minWidth: 200,
       filterable: false,
       sortable: false,
       valueFormatter(params) {
@@ -183,7 +149,7 @@ const UserColumn = (): GridColDef[] => {
           disableFocusRipple
           className="hover: bg-transparent"
           icon={
-            <Link to={`/app/users/i/${params.id}`}>
+            <Link to={`/app/questions/i/${params.id}`}>
               <Button type="dashed">View</Button>
             </Link>
           }
@@ -191,33 +157,21 @@ const UserColumn = (): GridColDef[] => {
         />,
         <GridActionsCellItem
           icon={
-            <Link to={`/app/users/i/${params.id}/edit`}>
+            <Link to={`/app/questions/i/${params.id}/edit`}>
               <Iconify icon={"fluent:edit-12-regular"} className="text-lg" />
             </Link>
           }
           label="Edit"
         />,
+
         <GridActionsCellItem
           icon={
-            params.row.is_active ? (
-              <Iconify icon={"lucide:shield-ban"} className="text-lg" />
-            ) : (
-              <Iconify icon={"tabler:shield-up"} className="text-lg" />
-            )
-          }
-          disabled={isSuspendLoading}
-          showInMenu
-          label={params.row.is_active ? "Suspend User" : "Activate User"}
-          onClick={() => onSuspend(params.id)}
-        />,
-        <GridActionsCellItem
-          icon={
-            <Iconify icon={"icon-park-twotone:delete"} className="text-lg" />
+            <Iconify icon={"ic:twotone-restore-page"} className="text-lg" />
           }
           disabled={isDeleteLoading}
           showInMenu
-          label="Delete"
-          onClick={() => onDelete(params.id)}
+          label="Restore"
+          onClick={() => onDelete(params.id, null, true)}
         />,
         <GridActionsCellItem
           icon={
@@ -236,4 +190,4 @@ const UserColumn = (): GridColDef[] => {
   ];
 };
 
-export default UserColumn;
+export default Column;
